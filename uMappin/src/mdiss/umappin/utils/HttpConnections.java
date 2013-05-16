@@ -20,10 +20,17 @@ import android.util.Log;
 
 public class HttpConnections {
 
+	
+	/**
+	 * @param url the url where making the connection
+	 * @param token the token of the user to make API calls
+	 * @return the response body in a String
+	 */
 	public static String makeGetRequest(String url, String token) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(url);
 		httpget.addHeader("token", token);
+		Log.i("HTTP", "header = token: "+token);
 		Log.i("HTTP", "GET URL: " + url);
 		String responseBody = null;
 		try {
@@ -41,6 +48,11 @@ public class HttpConnections {
 		return responseBody;
 	}
 
+	/**
+	 * @param url the url where making the connection
+	 * @param nameValuePairs params key:value
+	 * @return the response body in a String
+	 */
 	public static String makePostRequest(String url,
 			List<NameValuePair> nameValuePairs) {
 		HttpClient httpclient = new DefaultHttpClient();
@@ -51,8 +63,8 @@ public class HttpConnections {
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
-			Log.i("HTTP", "Received JSON: " + EntityUtils.toString(entity));
 			responseBody = EntityUtils.toString(entity);
+			Log.i("HTTP", "POST: Received JSON: " + responseBody);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
@@ -63,5 +75,5 @@ public class HttpConnections {
 			e.printStackTrace();
 		}
 		return responseBody;
-	}
+	}	
 }

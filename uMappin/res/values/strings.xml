@@ -3,7 +3,12 @@
 
     <string name="app_name">uMappin</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Log Out</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="button_positive">OK</string>
+    <string name="button_negative">Cancel</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
 
 </resources>
