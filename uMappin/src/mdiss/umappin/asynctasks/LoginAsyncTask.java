@@ -3,9 +3,9 @@ package mdiss.umappin.asynctasks;
 import java.util.ArrayList;
 import java.util.List;
 
-import mdiss.umappin.LoginActivity;
-import mdiss.umappin.MainActivity;
 import mdiss.umappin.exceptions.UserNotFoundException;
+import mdiss.umappin.ui.LoginActivity;
+import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 
