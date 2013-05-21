@@ -6,4 +6,5 @@ public class Constants {
 	public static String logHttp = "HTTP";
 	public static String logJSON = "JSON";
 	public static String logPrefs = "uMappinPrefs";
+	public static String logGeoMethods = "GeoMethods";
 }

@@ -180,4 +180,11 @@ public class LoginActivity extends Activity {
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		setContentView(R.layout.activity_login);
+	}
+	
 }
