@@ -184,6 +184,8 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
+		/*If we enter to the app without login (with prefs) and then logout, we have to
+		  show the login view onRestart because onCreate we haven't shown it */ 
 		setContentView(R.layout.activity_login);
 	}
 	

@@ -10,5 +10,7 @@
     <string name="button_negative">Cancel</string>
     <string name="logout_title">Log out</string>
     <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="empty_list">The list is empty</string>
+    <string name="empty_folder_description">PNG image of an empty folder</string>
 
 </resources>

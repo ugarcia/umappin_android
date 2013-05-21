@@ -1,12 +1,9 @@
 package mdiss.umappin.ui;
 
 import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownloader;
 
 import mdiss.umappin.R;
 import mdiss.umappin.utils.Constants;
-import mdiss.umappin.utils.GeoMethods;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,22 +12,16 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends MapActivity {
-
-	private MapView mapView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_main);
-//		mapView = (MapView) findViewById(R.id.mapView);
-		mapView = new MapView(this, new MapnikTileDownloader());
-		mapView.setClickable(true);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setCenter(GeoMethods.getCurrentLocation(this)); 
-        mapView.getController().setZoom(16);
-        setContentView(mapView);
+		TextView text = new TextView(this);
+		text.setText("Hello!");
+		setContentView(text);
 	}
 
 	@Override
