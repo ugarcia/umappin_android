@@ -16,6 +16,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 public class HttpConnections {
@@ -76,4 +79,9 @@ public class HttpConnections {
 		}
 		return responseBody;
 	}	
+	
+	public static String getToken(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName, Context.MODE_PRIVATE);
+		return prefs.getString("token", "default");
+	}
 }

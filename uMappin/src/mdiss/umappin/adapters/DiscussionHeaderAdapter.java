@@ -60,8 +60,12 @@ public class DiscussionHeaderAdapter extends BaseAdapter {
 		//Max characters in users string=200, not to loop thousands users
 		String users = "";
 		int i=0;
-		while(users.length()<200){ 
-			users.concat(usersList.get(i).getName());
+		while(users.length()<200 && i<usersList.size()){ 
+			if (i==0) {
+				users = usersList.get(i).getName();
+			} else {
+				users=users + ", " + (usersList.get(i).getName());
+			}
 			i++;
 		}
 		mUsers.setText(users);

@@ -20,7 +20,12 @@ public class Discussion {
 	public Discussion(JSONObject json) {
 		try {
 			this.id=json.getString("id");
-			this.unread=json.getInt("unread");
+			String unread=json.getString("unread");
+			if (unread.equals("")) {
+				this.unread=0;
+			} else {
+				this.unread=Integer.parseInt(unread);
+			}
 			this.subject=json.getString("subject");
 			this.timeStamp=json.getLong("timeStamp");
 			this.lastWrote=json.getString("lastWrote");
@@ -35,8 +40,8 @@ public class Discussion {
 			
 			//Get messages (if exists) and put them in the messages attribute
 			ArrayList<Message> messages = new ArrayList<Message>();
-			JSONArray array = json.getJSONArray("messages");
-			if (array!=null) {
+			if (!json.isNull("messages")) {
+				JSONArray array = json.getJSONArray("messages");
 				for (int i=0; i<array.length();i++) {
 					messages.add(new Message(array.getJSONObject(i)));
 				}
@@ -101,5 +106,17 @@ public class Discussion {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+	
+	public static List<Discussion> getListFromJSONArray(JSONArray array) {
+		List<Discussion> list = new ArrayList<Discussion>();
+		for (int i=0;i<array.length();i++) {
+			try {
+				list.add(new Discussion(array.getJSONObject(i)));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }

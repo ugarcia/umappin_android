@@ -13,7 +13,7 @@ public class DiscussionUser {
 		try {
 			this.setId(json.getString("id"));
 			this.setName(json.getString("name"));
-			this.setPhoto(json.getString("photo"));
+			this.setPhoto(json.getString("profilePicture"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 

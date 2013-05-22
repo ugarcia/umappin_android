@@ -42,10 +42,10 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 			if (responseBody.contains("User not found")) {
 				throw new UserNotFoundException(params[0] + "-" + params[1]
 						+ " : incorrect");
-			} else {
-				savePreferences(params[0], params[1]);
-			}
+			} 
+			
 			json = new JSONObject(responseBody);
+			savePreferences(params[0], params[1],json.getString("token"));
 			Log.i("JSON", json.toString());
 			new TestLoginAsyncTask().execute(json.getString("token"));
 		} catch (ParseException e) {
@@ -77,12 +77,13 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 	 * @param username
 	 * @param password
 	 */
-	public void savePreferences(String username, String password) {
+	public void savePreferences(String username, String password, String token) {
 		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString("user", username);
 		editor.putString("password", password);
+		editor.putString("token", token);
 		editor.commit();
 		Log.i(Constants.logPrefs,"user-password: " + username + "-" + password + ". Saved");
 	}

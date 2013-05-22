@@ -36,10 +36,16 @@ public class DiscussionHeadersFragment extends ListFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.list,container,false);
+		return inflater.inflate(R.layout.list,container,false);
+
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		mList = (ListView) getListView();
 		DiscussionHeaderAdapter adapter = new DiscussionHeaderAdapter(getActivity(),discussionHeaders);
 		mList.setAdapter(adapter);
-		return view;
 	}
+	
 }
