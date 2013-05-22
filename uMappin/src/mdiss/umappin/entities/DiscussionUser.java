@@ -1,8 +1,5 @@
 package mdiss.umappin.entities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,25 +7,23 @@ public class DiscussionUser {
 
 	private String id;
 	private String name;
-	private URL photo;
+	private String photo;
 	
 	public DiscussionUser(JSONObject json) {
 		try {
 			this.setId(json.getString("id"));
 			this.setName(json.getString("name"));
-			this.setPhoto(new URL(json.getString("photo")));
+			this.setPhoto(json.getString("photo"));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
-	public URL getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(URL photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
