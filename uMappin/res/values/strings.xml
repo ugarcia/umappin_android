@@ -13,5 +13,7 @@
     <string name="empty_list">The list is empty</string>
     <string name="empty_folder_description">PNG image of an empty folder</string>
     <string name="user_image_description">User\'s image</string>
+    <string name="open_drawer">Sidemenu opened</string>
+    <string name="close_drawer">Siemenu closed</string>
 
 </resources>

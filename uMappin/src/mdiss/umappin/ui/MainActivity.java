@@ -9,19 +9,57 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 
 public class MainActivity extends MapActivity {
+	
+	private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private String[] menuOptions = {"Messages","Map","Games","Take a photo"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TextView text = new TextView(this);
-		text.setText("Hello!");
-		setContentView(text);
+		setContentView(R.layout.activity_main);
+
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.row_drawer_menu,menuOptions));
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+		mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.open_drawer,  /* "open drawer" description for accessibility */
+                R.string.close_drawer  /* "close drawer" description for accessibility */
+                ) {
+            public void onDrawerClosed(View view) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+		
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 	}
 
 	@Override
@@ -58,10 +96,28 @@ public class MainActivity extends MapActivity {
 					});
 			alertDialog.show();
 			return true;
+		} else if (mDrawerToggle.onOptionsItemSelected(item)){
+			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	/* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	//TODO on menu item click
+            switch(position) {
+            case 0://Messages
+            case 1://Map
+            case 2://Games
+            default://Take a photo
+            		
+            }
+            mDrawerLayout.closeDrawer(mDrawerList);
+        }
+    }
 
 	private void clearPrefs() {
 		SharedPreferences prefs = getSharedPreferences(Constants.prefsName,
@@ -71,4 +127,19 @@ public class MainActivity extends MapActivity {
 		editor.commit();
 		Log.i(Constants.logPrefs,"preferences cleared");
 	}
+	
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 }
