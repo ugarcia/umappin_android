@@ -30,7 +30,7 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 	
 	@Override
 	protected JSONArray doInBackground(Void... arg0) {
-		String response = HttpConnections.makeGetRequest(Constants.uMappinUrl + "discussions", HttpConnections.getToken(activity));
+		String response = HttpConnections.makeGetRequest(Constants.uMappinUrl + "discussions", null, null, activity);
 		JSONArray array=new JSONArray();
 		try {
 			array = new JSONArray(response);

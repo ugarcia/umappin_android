@@ -8,6 +8,7 @@ import mdiss.umappin.ui.LoginActivity;
 import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
+import mdiss.umappin.utils.Login;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -15,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,9 +25,10 @@ import android.util.Log;
 
 public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 
-	LoginActivity activity;
+	Activity activity;
+	
 
-	public LoginAsyncTask(LoginActivity activity) {
+	public LoginAsyncTask(Activity activity) {
 		this.activity = activity;
 	}
 
@@ -37,7 +40,8 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 		nameValuePairs.add(new BasicNameValuePair("password", params[1]));
 		try {
 			String responseBody = HttpConnections.makePostRequest(
-					Constants.uMappinUrl + "login", nameValuePairs);
+					Constants.uMappinUrl + "login", nameValuePairs, null,
+					activity);
 			JSONObject json = null;
 			if (responseBody.contains("User not found")) {
 				throw new UserNotFoundException(params[0] + "-" + params[1]
@@ -45,9 +49,12 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 			} 
 			
 			json = new JSONObject(responseBody);
-			savePreferences(params[0], params[1],json.getString("token"));
+			
+			//save login info
+			Login.saveLoginPreferences(params[0], params[1],json.getString("token"));
+			
 			Log.i("JSON", json.toString());
-			new TestLoginAsyncTask().execute(json.getString("token"));
+			//new TestLoginAsyncTask().execute(json.getString("token"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return false;
@@ -63,29 +70,21 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean result) {
+		
+		//TODO fix progress to be compatible with any activity
 		if (result) {// Positive login
-			Intent intent = new Intent(activity, MainActivity.class);
-			activity.showProgress(false);
-			activity.startActivity(intent);
+			if (!(activity instanceof MainActivity)){
+	            Intent intent = new Intent(activity, MainActivity.class);
+				//activity.showProgress(false);
+				activity.startActivity(intent);
+			}
 		} else {// Error while login
-			activity.showProgress(false);
-			activity.mEmailView.setError("Incorrect user or password");
+			//activity.showProgress(false);
+			//activity.mEmailView.setError("Incorrect user or password");
+			//TODO
 		}
 	}
 
-	/**
-	 * @param username
-	 * @param password
-	 */
-	public void savePreferences(String username, String password, String token) {
-		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName,
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString("user", username);
-		editor.putString("password", password);
-		editor.putString("token", token);
-		editor.commit();
-		Log.i(Constants.logPrefs,"user-password: " + username + "-" + password + ". Saved");
-	}
+	
 	
 }

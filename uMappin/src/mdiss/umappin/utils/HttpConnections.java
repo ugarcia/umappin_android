@@ -21,19 +21,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import mdiss.umappin.utils.Login;
+
 public class HttpConnections {
 
 	
 	/**
 	 * @param url the url where making the connection
-	 * @param token the token of the user to make API calls
+	 * @param body the body of the request
+	 * @param header the header of the request, we don't need token
 	 * @return the response body in a String
 	 */
-	public static String makeGetRequest(String url, String token) {
+	
+	public static String makeGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
+			Activity parentActivity) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(url);
-		httpget.addHeader("token", token);
-		Log.i("HTTP", "header = token: "+token);
+		httpget.addHeader("token",Login.getToken());
+		Log.i("HTTP", "header = token: "+Login.getToken());
 		Log.i("HTTP", "GET URL: " + url);
 		String responseBody = null;
 		try {
@@ -47,23 +52,29 @@ public class HttpConnections {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		if (responseBody.compareToIgnoreCase(Constants.unauthorizedError) == 0){
+			Login.setParentActivity(parentActivity);
+			Login.login();
+		}
 		Log.i("HTTP", "GET response: " + responseBody);
 		return responseBody;
 	}
 
 	/**
 	 * @param url the url where making the connection
-	 * @param nameValuePairs params key:value
+	 * @param body the body of the request
+	 * @param header the header of the request, we don't need token
 	 * @return the response body in a String
 	 */
 	public static String makePostRequest(String url,
-			List<NameValuePair> nameValuePairs) {
+			List<NameValuePair> body, List<NameValuePair> header,
+			Activity parentActivity) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 		Log.i("HTTP", "POST URL: " + url);
 		String responseBody = null;
 		try {
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			httppost.setEntity(new UrlEncodedFormEntity(body));
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);
