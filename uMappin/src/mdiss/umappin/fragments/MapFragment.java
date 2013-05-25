@@ -1,9 +1,10 @@
 package mdiss.umappin.fragments;
 
-import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownloader;
+
+import com.google.android.maps.MapView;
 
 import mdiss.umappin.utils.GeoMethods;
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,16 +15,17 @@ public class MapFragment extends Fragment {
 
 	private MapView mapView;
 	
+	@SuppressLint("NewApi")
 	public MapFragment() {
 		super();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mapView = new MapView(getActivity(), new MapnikTileDownloader());
+		//mapView = new MapView(getActivity(), new MapnikTileDownloader());
 		mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        mapView.setCenter(GeoMethods.getCurrentLocation(getActivity())); 
+       // mapView.setCenter(GeoMethods.getCurrentLocation(getActivity())); 
         mapView.getController().setZoom(16);
 		return mapView;
 	}

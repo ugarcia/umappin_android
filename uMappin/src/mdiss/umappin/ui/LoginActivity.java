@@ -47,6 +47,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Login.setParentActivity(this); //we need this to work
 		if (Login.savedData()) { // we have "user" in sharedpreferences
+			Login.login();//we dont need user and pass but need to login
 			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 		} else {

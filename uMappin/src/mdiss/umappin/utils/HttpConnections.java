@@ -114,10 +114,14 @@ public class HttpConnections {
 		return prefs.getString("token", "default");
 	}
 	
+	/*
+	 * We call always after ask from info from AsyncTasks to check if the token is valid
+	 * If it isn't valid it calls to LoginActivity.
+	 */
 	public static void goToLoginIfneed(){
 		if (lastResponse.compareToIgnoreCase(Constants.unauthorizedError)==0){
 			 Intent intent = new Intent(parentAct, LoginActivity.class);
-			// parentAct.startActivity(intent);
+			 parentAct.startActivity(intent);
 		}
 	}
 	

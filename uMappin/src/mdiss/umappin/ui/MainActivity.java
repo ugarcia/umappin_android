@@ -1,14 +1,18 @@
 package mdiss.umappin.ui;
 
+
+
+
+
 import org.mapsforge.android.maps.MapActivity;
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.utils.Constants;
+import mdiss.umappin.utils.Login;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +39,6 @@ public class MainActivity extends MapActivity {
     private String[] menuOptions = {"Timeline","Messages","Map","Games","Take a photo"};
 	
 	@SuppressLint("NewApi")
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -64,6 +67,7 @@ public class MainActivity extends MapActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+        
 		
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
