@@ -3,13 +3,16 @@ package mdiss.umappin.asynctasks;
 import mdiss.umappin.R;
 import mdiss.umappin.entities.Discussion;
 import mdiss.umappin.fragments.DiscussionHeadersFragment;
+import mdiss.umappin.ui.LoginActivity;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 
@@ -40,6 +43,7 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 		return array;
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onPostExecute(JSONArray result) {
 		super.onPostExecute(result);
@@ -48,5 +52,9 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 		activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 		activity.findViewById(R.id.loading).setVisibility(View.GONE);
 		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
+		
+		HttpConnections.goToLoginIfneed();
+		
+
 	}
 }

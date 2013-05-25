@@ -18,9 +18,13 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 
+import mdiss.umappin.ui.LoginActivity;
+import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Login;
 
 public class HttpConnections {
@@ -33,8 +37,20 @@ public class HttpConnections {
 	 * @return the response body in a String
 	 */
 	
+	static Activity parentAct;
+	static String lastUrl;
+	static List<NameValuePair> lastBody;
+	static List<NameValuePair> lastHeader;
+	static String lastResponse;
+	private static Boolean loginFinish =false;
+	
 	public static String makeGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
 			Activity parentActivity) {
+		parentAct = parentActivity;
+		lastBody =body;
+		lastHeader = header;
+		lastUrl = url;
+	
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(url);
 		httpget.addHeader("token",Login.getToken());
@@ -44,6 +60,7 @@ public class HttpConnections {
 		try {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
+			
 			responseBody = EntityUtils.toString(entity);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -52,11 +69,9 @@ public class HttpConnections {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (responseBody.compareToIgnoreCase(Constants.unauthorizedError) == 0){
-			Login.setParentActivity(parentActivity);
-			Login.login();
-		}
+		
 		Log.i("HTTP", "GET response: " + responseBody);
+		lastResponse = responseBody;
 		return responseBody;
 	}
 
@@ -69,6 +84,7 @@ public class HttpConnections {
 	public static String makePostRequest(String url,
 			List<NameValuePair> body, List<NameValuePair> header,
 			Activity parentActivity) {
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 		Log.i("HTTP", "POST URL: " + url);
@@ -88,6 +104,8 @@ public class HttpConnections {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		lastResponse = responseBody;
 		return responseBody;
 	}	
 	
@@ -95,4 +113,12 @@ public class HttpConnections {
 		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName, Context.MODE_PRIVATE);
 		return prefs.getString("token", "default");
 	}
+	
+	public static void goToLoginIfneed(){
+		if (lastResponse.compareToIgnoreCase(Constants.unauthorizedError)==0){
+			 Intent intent = new Intent(parentAct, LoginActivity.class);
+			// parentAct.startActivity(intent);
+		}
+	}
+	
 }

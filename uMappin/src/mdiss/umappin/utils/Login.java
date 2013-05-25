@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,6 +31,7 @@ public class Login  {
 	 */
 	private static Activity parentActivity;
 	private static String token;
+	private static int fakeToken = 0;
 	
 	public static boolean savedData() {
 		SharedPreferences prefs =  parentActivity.getSharedPreferences(Constants.prefsName, Context.MODE_PRIVATE);
@@ -62,6 +64,7 @@ public class Login  {
 	 * @param password
 	 */
 	public static void firstLogin(String email, String password){
+
 		new LoginAsyncTask(parentActivity).execute(email, password);
 		
 	}
@@ -88,7 +91,10 @@ public class Login  {
 
 	public static String getToken() {
 		// TODO Auto-generated method stub
-	
+		if (fakeToken <2){ //Used to set as not valid token
+			fakeToken++;
+			return fakeToken+"";
+		}
 		return token;
 	}
 

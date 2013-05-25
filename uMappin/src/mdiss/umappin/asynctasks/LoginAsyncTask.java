@@ -21,11 +21,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 
 public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 
 	Activity activity;
+	
+
 	
 
 	public LoginAsyncTask(Activity activity) {
@@ -70,7 +75,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean result) {
-		
+		super.onPostExecute(result);
 		//TODO fix progress to be compatible with any activity
 		if (result) {// Positive login
 			if (!(activity instanceof MainActivity)){
@@ -83,6 +88,8 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 			//activity.mEmailView.setError("Incorrect user or password");
 			//TODO
 		}
+		
+
 	}
 
 	

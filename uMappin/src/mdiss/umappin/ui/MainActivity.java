@@ -7,6 +7,8 @@ import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.utils.Constants;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+@SuppressLint("NewApi")
 public class MainActivity extends MapActivity {
 	
 	private DrawerLayout mDrawerLayout;
@@ -31,6 +34,7 @@ public class MainActivity extends MapActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuOptions = {"Timeline","Messages","Map","Games","Take a photo"};
 	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,11 +54,13 @@ public class MainActivity extends MapActivity {
                 R.string.open_drawer,  /* "open drawer" description for accessibility */
                 R.string.close_drawer  /* "close drawer" description for accessibility */
                 ) {
-            public void onDrawerClosed(View view) {
+            @SuppressLint("NewApi")
+			public void onDrawerClosed(View view) {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            public void onDrawerOpened(View drawerView) {
+            @SuppressLint("NewApi")
+			public void onDrawerOpened(View drawerView) {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
