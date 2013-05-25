@@ -91,10 +91,10 @@ public class Login  {
 
 	public static String getToken() {
 		// TODO Auto-generated method stub
-		if (fakeToken <2){ //Used to set as not valid token
+		/*if (fakeToken <2){ //Used to set as not valid token
 			fakeToken++;
 			return fakeToken+"";
-		}
+		}*/
 		return token;
 	}
 

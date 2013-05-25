@@ -8,6 +8,7 @@ import org.mapsforge.android.maps.MapActivity;
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
+import mdiss.umappin.asynctasks.ProfileAsyncTask;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.Login;
@@ -36,7 +37,7 @@ public class MainActivity extends MapActivity {
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String[] menuOptions = {"Timeline","Messages","Map","Games","Take a photo"};
+    private String[] menuOptions = {"Timeline","Profile","Messages","Map","Games","Take a photo"};
 	
 	@SuppressLint("NewApi")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,16 +125,20 @@ public class MainActivity extends MapActivity {
             case 0://Timeline
             	getActionBar().setTitle("Timeline");
             	break;
-            case 1://Messages
+            case 1://Profile
+            	getActionBar().setTitle("Profile");
+            	new ProfileAsyncTask(MainActivity.this).execute();
+            	break;
+            case 2://Messages
             	getActionBar().setTitle("Messages");
             	new DiscussionHeadersAsyncTask(MainActivity.this).execute();
             	break;
-            case 2://Map
+            case 3://Map
             	getActionBar().setTitle("OSMap");
             	MapFragment fragment = new MapFragment();
             	getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
             	break;
-            case 3://Games
+            case 4://Games
             	getActionBar().setTitle("Play!");
             	break;
             default://Take a photo
