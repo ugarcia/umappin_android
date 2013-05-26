@@ -30,7 +30,7 @@ public class DiscussionMessagesAsyncTask extends AsyncTask<String, Void, JSONObj
 	
 	@Override
 	protected JSONObject doInBackground(String... id) {
-		String response = HttpConnections.makeGetRequest(Constants.uMappinUrl + "discussions/" + id[0], HttpConnections.getToken(activity));
+		String response = HttpConnections.makeGetRequest(Constants.uMappinUrl + "discussions/" + id[0], null,null, this.activity);
 		JSONObject json=new JSONObject();
 		try {
 			json = new JSONObject(response);

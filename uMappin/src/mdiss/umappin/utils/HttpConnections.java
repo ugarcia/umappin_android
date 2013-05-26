@@ -18,27 +18,50 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
+
+import mdiss.umappin.ui.LoginActivity;
+import mdiss.umappin.ui.MainActivity;
+import mdiss.umappin.utils.Login;
 
 public class HttpConnections {
 
 	
 	/**
 	 * @param url the url where making the connection
-	 * @param token the token of the user to make API calls
+	 * @param body the body of the request
+	 * @param header the header of the request, we don't need token
 	 * @return the response body in a String
 	 */
-	public static String makeGetRequest(String url, String token) {
+	
+	static Activity parentAct;
+	static String lastUrl;
+	static List<NameValuePair> lastBody;
+	static List<NameValuePair> lastHeader;
+	static String lastResponse;
+	private static Boolean loginFinish =false;
+	
+	public static String makeGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
+			Activity parentActivity) {
+		parentAct = parentActivity;
+		lastBody =body;
+		lastHeader = header;
+		lastUrl = url;
+	
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(url);
-		httpget.addHeader("token", token);
-		Log.i("HTTP", "header = token: "+token);
+		httpget.addHeader("token",Login.getToken());
+		Log.i("HTTP", "header = token: "+Login.getToken());
 		Log.i("HTTP", "GET URL: " + url);
+		
 		String responseBody = null;
 		try {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
+			
 			responseBody = EntityUtils.toString(entity);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -48,22 +71,28 @@ public class HttpConnections {
 			e.printStackTrace();
 		}
 		Log.i("HTTP", "GET response: " + responseBody);
+
+		lastResponse = responseBody;
 		return responseBody;
 	}
 
+	
 	/**
 	 * @param url the url where making the connection
-	 * @param nameValuePairs params key:value
+	 * @param body the body of the request
+	 * @param header the header of the request, we don't need token
 	 * @return the response body in a String
 	 */
 	public static String makePostRequest(String url,
-			List<NameValuePair> nameValuePairs) {
+			List<NameValuePair> body, List<NameValuePair> header,
+			Activity parentActivity) {
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 		Log.i("HTTP", "POST URL: " + url);
 		String responseBody = null;
 		try {
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			httppost.setEntity(new UrlEncodedFormEntity(body));
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);
@@ -77,6 +106,8 @@ public class HttpConnections {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		lastResponse = responseBody;
 		return responseBody;
 	}	
 	
@@ -84,4 +115,14 @@ public class HttpConnections {
 		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName, Context.MODE_PRIVATE);
 		return prefs.getString("token", "default");
 	}
+	
+	public static boolean goToLoginIfneed(){
+		if (lastResponse.compareToIgnoreCase(Constants.unauthorizedError)==0){
+			 Intent intent = new Intent(parentAct, LoginActivity.class);
+			 parentAct.startActivity(intent);
+			 return true;
+		}
+		return false;
+	}
+	
 }
