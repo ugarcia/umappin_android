@@ -147,5 +147,7 @@
     <color name="DarkBlue">#FF00008B</color>
     <color name="Navy">#FF000080</color>
     <color name="Black">#FF000000</color>
+    
+    <color name="TransparentBlack">#99000000</color>
 
 </resources>

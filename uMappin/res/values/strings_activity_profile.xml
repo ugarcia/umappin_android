@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Strings related to login -->
+    <string name="social_info_title">Social</string>
+    <string name="personal_info_title">Personal Information</string>
+    <string name="follows_label">Following:</string>
+    <string name="followeds_label">Followers:</string>
+    
+    <string name="first_name_label">First name:</string>
+    <string name="last_name_label">Last name:</string>
+    
+    
+
+</resources>

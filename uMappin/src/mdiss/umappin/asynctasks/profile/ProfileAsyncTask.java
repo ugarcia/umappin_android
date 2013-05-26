@@ -1,4 +1,4 @@
-package mdiss.umappin.asynctasks;
+package mdiss.umappin.asynctasks.profile;
 
 import mdiss.umappin.R;
 import mdiss.umappin.entities.Discussion;
@@ -80,7 +80,8 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 			activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 			
 			new DownloadProfilePictureAsyncTask(currentUser,activity,fragment).execute(currentUser.getPhotoUri());
-
+			new GetFollowsAsyncTask(currentUser, activity, fragment).execute();
+			new GetFollowedAsyncTask(currentUser, activity, fragment).execute();
 		
 		}
 

@@ -1,0 +1,8 @@
+<resources>
+
+    <dimen name="profile_block">10dip</dimen>
+    <dimen name="profile_subBlock">10dip</dimen>
+    
+    
+
+</resources>

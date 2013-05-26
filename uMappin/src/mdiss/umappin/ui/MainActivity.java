@@ -11,7 +11,7 @@ import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownload
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
-import mdiss.umappin.asynctasks.ProfileAsyncTask;
+import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
 import mdiss.umappin.utils.AlbumStorageDirFactory;

@@ -1,4 +1,4 @@
-package mdiss.umappin.asynctasks;
+package mdiss.umappin.asynctasks.profile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -103,7 +103,7 @@ public class DownloadProfilePictureAsyncTask extends AsyncTask<String, Void, Bit
 		new Thread(){
 			public void run(){
 				Looper.prepare();
-				fragment.getMyhandler().sendEmptyMessage(1);
+				fragment.getMyhandler().sendEmptyMessage(Constants.profilePicture);
 
 			}
 		}.start();
