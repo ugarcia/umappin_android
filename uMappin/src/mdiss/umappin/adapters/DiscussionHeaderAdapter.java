@@ -37,7 +37,7 @@ public class DiscussionHeaderAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return Long.valueOf(items.get(position).getId());
+		return position;
 	}
 
 	@Override

@@ -7,4 +7,7 @@ public class Constants {
 	public static String logJSON = "JSON";
 	public static String logPrefs = "uMappinPrefs";
 	public static String logGeoMethods = "GeoMethods";
+	public static String logMap = "Map";
+	public static String picturePointName= "The picture is here";
+	public static String picturePointDesc= "Current picture";
 }

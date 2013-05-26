@@ -5,12 +5,15 @@ import java.util.List;
 
 import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionHeaderAdapter;
+import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
 import mdiss.umappin.entities.Discussion;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class DiscussionHeadersFragment extends ListFragment{
@@ -46,6 +49,13 @@ public class DiscussionHeadersFragment extends ListFragment{
 		mList = (ListView) getListView();
 		DiscussionHeaderAdapter adapter = new DiscussionHeaderAdapter(getActivity(),discussionHeaders);
 		mList.setAdapter(adapter);
+		mList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				new DiscussionMessagesAsyncTask(getActivity()).execute(discussionHeaders.get(position).getId());
+			}
+		});
 	}
 	
 }

@@ -1,5 +1,9 @@
 package mdiss.umappin.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,5 +54,17 @@ public class Message {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public static List<Message> getListFromJSONArray(JSONArray array) {
+		List<Message> list = new ArrayList<Message>();
+		for (int i=0;i<array.length();i++) {
+			try {
+				list.add(new Message(array.getJSONObject(i)));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }

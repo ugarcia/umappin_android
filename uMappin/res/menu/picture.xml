@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+   <item
+        android:id="@+id/action_new_photo"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_new_photo"/>
+    
+    <item
+        android:id="@+id/action_upload_photo"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_upload"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_upload_photo"/>
+
+</menu>

@@ -36,7 +36,7 @@ public class GeoMethods {
 			e.printStackTrace();
 			//We return a point to show if we can't use location
 			//TODO show something if can't get location
-			return new GeoPoint(1, 1);
+			return new GeoPoint(42.6, -2.92);
 		}
 	}
 }

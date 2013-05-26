@@ -38,7 +38,7 @@ public class DiscussionMessagesAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return Long.valueOf(discussion.getMessages().get(position).getId());
+		return position;
 	}
 
 	@Override

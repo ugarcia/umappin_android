@@ -21,7 +21,7 @@ public class Discussion {
 		try {
 			this.id=json.getString("id");
 			String unread=json.getString("unread");
-			if (unread.equals("")) {
+			if (unread.equals("") || unread.equals("fixme")) {
 				this.unread=0;
 			} else {
 				this.unread=Integer.parseInt(unread);

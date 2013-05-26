@@ -55,28 +55,36 @@ public class LoginActivity extends Activity {
 			mEmailView = (EditText) findViewById(R.id.email);
 
 			mPasswordView = (EditText) findViewById(R.id.password);
-			mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-				@Override
-				public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-					if (id == R.id.login || id == EditorInfo.IME_NULL) {
-						attemptLogin();
-						return true;
-					}
-					return false;
-				}
-			});
+			onEnterPasswordFromKeyboard();
 
 			mLoginFormView = findViewById(R.id.login_form);
 			mLoginStatusView = findViewById(R.id.login_status);
 			mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-			findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					attemptLogin();
-				}
-			});
+			onClickEnterButton();
 		}
+	}
+
+	private void onClickEnterButton() {
+		findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				attemptLogin();
+			}
+		});
+	}
+
+	private void onEnterPasswordFromKeyboard() {
+		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+					attemptLogin();
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	/**
@@ -187,6 +195,15 @@ public class LoginActivity extends Activity {
 		/*If we enter to the app without login (with prefs) and then logout, we have to
 		  show the login view onRestart because onCreate we haven't shown it */ 
 		setContentView(R.layout.activity_login);
+		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+		mEmailView = (EditText) findViewById(R.id.email);
+
+		mPasswordView = (EditText) findViewById(R.id.password);
+		mLoginFormView = findViewById(R.id.login_form);
+		mLoginStatusView = findViewById(R.id.login_status);
+		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+		onClickEnterButton();
+		onEnterPasswordFromKeyboard();
 	}
 	
 }
