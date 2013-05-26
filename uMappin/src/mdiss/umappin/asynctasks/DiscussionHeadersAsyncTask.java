@@ -53,7 +53,6 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 		activity.findViewById(R.id.loading).setVisibility(View.GONE);
 		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 		
-		//Call always onPostExecute.
 		HttpConnections.goToLoginIfneed();
 		
 

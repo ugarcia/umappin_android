@@ -23,7 +23,7 @@ public class MapFragment extends Fragment {
 		mapView = new MapView(getActivity(), new MapnikTileDownloader());
 		mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
-        //mapView.setCenter(GeoMethods.getCurrentLocation(getActivity()));
+        mapView.setCenter(GeoMethods.getCurrentLocation(getActivity())); 
         mapView.getController().setZoom(16);
 		return mapView;
 	}

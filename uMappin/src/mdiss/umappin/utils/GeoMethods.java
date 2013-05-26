@@ -1,7 +1,6 @@
 package mdiss.umappin.utils;
 
-
-import com.google.android.maps.GeoPoint;
+import org.mapsforge.core.GeoPoint;
 
 import android.content.Context;
 import android.location.Location;

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="NewApi">
-        <ignore path="src/mdiss/umappin/fragments/ProfileFragment.java" />
-    </issue>
-    <issue id="ValidFragment">
-        <ignore path="src/mdiss/umappin/fragments/MapFragment.java" />
-    </issue>
-</lint>

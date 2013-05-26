@@ -12,16 +12,22 @@ import mdiss.umappin.utils.HttpConnections;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 
 	private Activity activity;
+	
+	
 	
 	public ProfileAsyncTask(Activity activity) {
 		this.activity=activity;
@@ -59,18 +65,28 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	protected void onPostExecute(JSONObject result) {
 		super.onPostExecute(result);
 		
-		User currentUser = new User(result);
-		ProfileFragment fragment = new ProfileFragment();
-		fragment.setProfileData(currentUser);
-		//DiscussionHeadersFragment fragment = new DiscussionHeadersFragment();
-		//fragment.setDiscussionHeaders(Discussion.getListFromJSONArray(result));
-		activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-		activity.findViewById(R.id.loading).setVisibility(View.GONE);
-		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
+		if(!HttpConnections.goToLoginIfneed()){
+			User currentUser = new User(result);
+			ProfileFragment fragment = new ProfileFragment();
+			fragment.setProfileData(currentUser);
+			//while(currentUser.getProfilePicture()==null){
+				//Whait to profile Picture to be Loaded
+				//It could be beter to use a Handler, but not time to implement it,...
+			//}
+			//DiscussionHeadersFragment fragment = new DiscussionHeadersFragment();
+			//fragment.setDiscussionHeaders(Discussion.getListFromJSONArray(result));
+			activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+			activity.findViewById(R.id.loading).setVisibility(View.GONE);
+			activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
+			
+			new DownloadProfilePictureAsyncTask(currentUser,activity,fragment).execute(currentUser.getPhotoUri());
+
 		
-		//Call always onPostExecute.
-		HttpConnections.goToLoginIfneed();
-		
+		}
 
 	}
+
+
+
+
 }

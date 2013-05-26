@@ -10,10 +10,14 @@ import mdiss.umappin.entities.User;
 import android.annotation.SuppressLint;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +29,14 @@ public class ProfileFragment extends ListFragment{
 	 * goes wrong. Then use setDiscussionHeaders. 
 	 */
 	private User profileUser;
+	private final Handler myHandler = new Handler(){
+		public void handleMessage(final Message msg){
+			ImageView profilePicture = (ImageView)getView().findViewById(R.id.profileImage);
+			profilePicture.setImageBitmap(profileUser.getProfilePicture());
+			Log.i("some", msg+"");
+
+		}
+	};
 	public ProfileFragment() {
 	}
 	
@@ -44,6 +56,11 @@ public class ProfileFragment extends ListFragment{
 		TextView name = (TextView) getView().findViewById(R.id.firstName);
 		name.setText(profileUser.getName());
 		
+		
+		
+	}
+	public  Handler getMyhandler() {
+		return myHandler;
 	}
 	
 }

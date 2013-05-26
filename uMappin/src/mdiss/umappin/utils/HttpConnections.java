@@ -56,6 +56,7 @@ public class HttpConnections {
 		httpget.addHeader("token",Login.getToken());
 		Log.i("HTTP", "header = token: "+Login.getToken());
 		Log.i("HTTP", "GET URL: " + url);
+		
 		String responseBody = null;
 		try {
 			HttpResponse response = httpclient.execute(httpget);
@@ -69,12 +70,13 @@ public class HttpConnections {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		Log.i("HTTP", "GET response: " + responseBody);
+
 		lastResponse = responseBody;
 		return responseBody;
 	}
 
+	
 	/**
 	 * @param url the url where making the connection
 	 * @param body the body of the request
@@ -114,15 +116,13 @@ public class HttpConnections {
 		return prefs.getString("token", "default");
 	}
 	
-	/*
-	 * We call always after ask from info from AsyncTasks to check if the token is valid
-	 * If it isn't valid it calls to LoginActivity.
-	 */
-	public static void goToLoginIfneed(){
+	public static boolean goToLoginIfneed(){
 		if (lastResponse.compareToIgnoreCase(Constants.unauthorizedError)==0){
 			 Intent intent = new Intent(parentAct, LoginActivity.class);
 			 parentAct.startActivity(intent);
+			 return true;
 		}
+		return false;
 	}
 	
 }
