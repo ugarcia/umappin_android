@@ -148,6 +148,10 @@
     <color name="Navy">#FF000080</color>
     <color name="Black">#FF000000</color>
     
-    <color name="TransparentBlack">#99000000</color>
+    <color name="TransparentBackground">#99463116</color>
+    
+    <color name="background">#fcf8dc</color>
+    <color name="darkBackground">#463116</color>
+    <color name="titles">#463116</color>
 
 </resources>

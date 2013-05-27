@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -89,6 +90,7 @@ public class HttpConnections {
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
+		
 		Log.i("HTTP", "POST URL: " + url);
 		String responseBody = null;
 		try {
@@ -97,6 +99,36 @@ public class HttpConnections {
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);
 			Log.i("HTTP", "POST: Received JSON: " + responseBody);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		lastResponse = responseBody;
+		return responseBody;
+	}	
+	public static String makePutRequest(String url,
+			List<NameValuePair> body, List<NameValuePair> header,
+			Activity parentActivity) {
+		
+		HttpClient httpclient = new DefaultHttpClient();
+		
+		HttpPut httpput = new HttpPut(url);
+		httpput.addHeader("token",Login.getToken());
+		Log.i("HTTP", "header = token: "+Login.getToken());
+		Log.i("HTTP", "PUT URL: " + url);
+		String responseBody = null;
+		try {
+			httpput.setEntity(new UrlEncodedFormEntity(body));
+			HttpResponse response = httpclient.execute(httpput);
+			HttpEntity entity = response.getEntity();
+			responseBody = EntityUtils.toString(entity);
+			Log.i("HTTP", "PUT: Received JSON: " + responseBody);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {

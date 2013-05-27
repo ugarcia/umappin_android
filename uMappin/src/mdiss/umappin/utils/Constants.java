@@ -10,6 +10,8 @@ public class Constants {
 	public static String pictureUri = uMappinUrl+"photos/";
 	public static String followsUri = uMappinUrl+"followsInfo";
 	public static String followedUri = uMappinUrl+"followedInfo";
+	public static String userUri = uMappinUrl+"users";
+
 
 	//END URIS
 	public static String prefsName = "uMappinPrefs"; //Name of the SharedPreferences
