@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mdiss.umappin.exceptions.UserNotFoundException;
-import mdiss.umappin.ui.LoginActivity;
 import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
@@ -17,21 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 
 public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 
 	Activity activity;
-	
-
-	
 
 	public LoginAsyncTask(Activity activity) {
 		this.activity = activity;
