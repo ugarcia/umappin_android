@@ -29,7 +29,7 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="vertical" 
-		    android:background="#EEEEEE">
+		    android:background="@color/background">
 		
 		    <RelativeLayout
 		        android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
 			    android:id="@+id/profileImage"
 			    android:layout_width="fill_parent"
 			    android:layout_height="200dip"
-			    android:background="@color/Black"/>
+			    android:background="@color/darkBackground"/>
 		
 		    <TextView
 		        android:id="@+id/firstName"
@@ -48,7 +48,7 @@
 		        android:gravity="center"
 		        android:textAlignment="center"
 		        android:textSize="40.0sp" 
-		        android:background="@color/TransparentBlack"
+		        android:background="@color/TransparentBackground"
 		        android:textColor="@color/White"
 		        android:layout_alignBottom="@id/profileImage"
 		    	/>
@@ -70,13 +70,13 @@
 		    		android:textSize="20.0sp"
 		    		android:textAllCaps="true" 
 		    		android:text="@string/social_info_title"
-		    		android:textColor="@android:color/holo_blue_dark"
+		    		android:textColor="@color/titles"
 		    	/>
 		    	<View
 		                android:layout_width="fill_parent"
 		                android:layout_height="1dp"
 		                android:visibility="visible"
-		                android:background="@android:color/holo_blue_dark"
+		                android:background="@color/titles"
 		   		 />
 		    
 		        <RelativeLayout
@@ -111,7 +111,7 @@
 		                android:contentDescription="View"
 		               	android:layout_alignParentRight="true"
 		                android:src="@android:drawable/ic_menu_sort_by_size" 
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                />
 		
 		        </RelativeLayout>
@@ -154,7 +154,7 @@
 		                android:contentDescription="View"
 		               	android:layout_alignParentRight="true"
 		                android:src="@android:drawable/ic_menu_sort_by_size" 
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                />
 		
 		        </RelativeLayout>
@@ -184,14 +184,14 @@
 		    		android:textSize="20.0sp"
 		    		android:textAllCaps="true" 
 		    		android:text="@string/personal_info_title"
-		    		android:textColor="@android:color/holo_blue_dark"
+		    		android:textColor="@color/titles"
 		    		android:layout_marginTop="10dip"  
 		    	/>
 		    	<View
 		                android:layout_width="fill_parent"
 		                android:layout_height="1dp"
 		                android:visibility="visible"
-		                android:background="@android:color/holo_blue_dark"
+		                android:background="@color/titles"
 		   		 />
 		    	<RelativeLayout
 		            android:layout_width="match_parent"
@@ -225,7 +225,7 @@
 		                android:contentDescription="Edit"
 		               	android:layout_alignParentRight="true"
 		                android:src="@android:drawable/ic_menu_edit"
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                 
 		                />
 		             <!-- Strat edit info -->
@@ -237,7 +237,7 @@
 		                android:contentDescription="Edit"
 		               	android:layout_alignParentRight="true"
 		                android:src="@drawable/ic_checkmark_holo_light"
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                android:visibility="invisible"
 		                
 		                />
@@ -259,7 +259,7 @@
 		                android:contentDescription="Edit"
 		                android:src="@android:drawable/ic_menu_close_clear_cancel"
 		                android:layout_toLeftOf="@id/first_name_sep"
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                android:visibility="invisible"
 		                 
 		                />
@@ -311,15 +311,153 @@
 		        	/>
 		
 		            <ImageButton
-		                android:id="@+id/edit_lastname"
+		                android:id="@+id/edit_last_name_button"
 		                android:layout_width="40dip"
 		                android:layout_height="40dip"
 		                android:layout_marginRight="0dip"
 		                android:contentDescription="Edit"
 		               	android:layout_alignParentRight="true"
 		                android:src="@android:drawable/ic_menu_edit" 
-		                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+		                android:background="@drawable/simple_button"
 		                />
+		            
+		             <!-- Strat edit info -->
+		               <ImageButton
+		                android:id="@+id/edit_last_name_confirm_button"
+		                android:layout_width="40dip"
+		                android:layout_height="40dip"
+		                android:layout_marginRight="0dip"
+		                android:contentDescription="Edit"
+		               	android:layout_alignParentRight="true"
+		                android:src="@drawable/ic_checkmark_holo_light"
+		                android:background="@drawable/simple_button"
+		                android:visibility="invisible"
+		                
+		                />
+		            
+		          
+		            <View
+		                android:id="@+id/last_name_sep"
+		                android:layout_width="1dip"
+		                android:layout_height="fill_parent"
+		                android:visibility="visible"
+		                android:background="@android:color/holo_blue_bright"
+		                android:layout_toLeftOf="@id/edit_last_name_confirm_button"
+		   		 	/>
+		            <ImageButton
+		                android:id="@+id/edit_last_name_cancel_button"
+		                android:layout_width="40dip"
+		                android:layout_height="40dip"
+		                android:layout_marginRight="0dip"
+		                android:contentDescription="Edit"
+		                android:src="@android:drawable/ic_menu_close_clear_cancel"
+		                android:layout_toLeftOf="@id/last_name_sep"
+		                android:background="@drawable/simple_button"
+		                android:visibility="invisible"
+		                 
+		                />
+		            <EditText 
+		                android:id="@+id/edit_last_name_text"
+		                android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+		                android:visibility="invisible"
+		                android:singleLine="true"
+		                android:layout_toLeftOf="@id/edit_last_name_cancel_button"
+		                />
+		            
+		
+		        </RelativeLayout>
+		        <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		         
+		         <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_email_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/email_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileEmail"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_email_label"
+				        android:layout_marginLeft="5dip"
+		        	/>
+		
+		            <ImageButton
+		                android:id="@+id/edit_email_button"
+		                android:layout_width="40dip"
+		                android:layout_height="40dip"
+		                android:layout_marginRight="0dip"
+		                android:contentDescription="Edit"
+		               	android:layout_alignParentRight="true"
+		                android:src="@android:drawable/ic_menu_edit" 
+		                android:background="@drawable/simple_button"
+		                />
+		            
+		             <!-- Strat edit info -->
+		               <ImageButton
+		                android:id="@+id/edit_email_confirm_button"
+		                android:layout_width="40dip"
+		                android:layout_height="40dip"
+		                android:layout_marginRight="0dip"
+		                android:contentDescription="Edit"
+		               	android:layout_alignParentRight="true"
+		                android:src="@drawable/ic_checkmark_holo_light"
+		                android:background="@drawable/simple_button"
+		                android:visibility="invisible"
+		                
+		                />
+		            
+		          
+		            <View
+		                android:id="@+id/email_sep"
+		                android:layout_width="1dip"
+		                android:layout_height="fill_parent"
+		                android:visibility="visible"
+		                android:background="@android:color/holo_blue_bright"
+		                android:layout_toLeftOf="@id/edit_email_confirm_button"
+		   		 	/>
+		            <ImageButton
+		                android:id="@+id/edit_email_cancel_button"
+		                android:layout_width="40dip"
+		                android:layout_height="40dip"
+		                android:layout_marginRight="0dip"
+		                android:contentDescription="Edit"
+		                android:src="@android:drawable/ic_menu_close_clear_cancel"
+		                android:layout_toLeftOf="@id/email_sep"
+		                android:background="@drawable/simple_button"
+		                android:visibility="invisible"
+		                 
+		                />
+		            <EditText 
+		                android:id="@+id/edit_email_text"
+		                android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+		                android:visibility="invisible"
+		                android:singleLine="true"
+		                android:inputType="textEmailAddress"
+		                android:layout_toLeftOf="@id/edit_email_cancel_button"
+		                />
+		            
 		
 		        </RelativeLayout>
 		         <View

@@ -2,12 +2,14 @@ package mdiss.umappin.entities;
 
 import java.util.ArrayList;
 
+import mdiss.umappin.asynctasks.profile.ProfileSaveAsyncTask;
 import mdiss.umappin.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 
 public class User {
@@ -17,6 +19,17 @@ public class User {
 	private String photoUri;
 	private String firstName;
 	private String lastName;
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	private ArrayList<User> followed;
 	private ArrayList<User> follows;
 	private Bitmap profilePicture =null;
@@ -28,6 +41,7 @@ public class User {
 			this.setName(json.getString("name"));
 			if (!json.isNull("firstName")) this.setFirstName(json.getString("firstName"));
 			if (!json.isNull("lastName")) this.setLastName(json.getString("lastName"));
+			this.setEmail(json.getString("email"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 
@@ -121,5 +135,9 @@ public class User {
 		}
 		return list;
 		
+	}
+	
+	public void save(Activity activity){
+		new ProfileSaveAsyncTask(activity).execute(this);		
 	}
 }
