@@ -18,18 +18,17 @@ import android.widget.TextView;
 public class FollowsAdapter extends BaseAdapter {
  
     private Activity activity;
-    private ArrayList<HashMap<String, String>> data;
     private static LayoutInflater inflater=null;
-    User user;
+    ArrayList<User> users;
  
-    public FollowsAdapter(Activity a, User pUser) {
+    public FollowsAdapter(Activity a, ArrayList<User> pUsers){
         activity = a;
-        user = pUser;
+        users = pUsers;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
  
     public int getCount() {
-        return data.size();
+        return users.size();
     }
  
     public Object getItem(int position) {
@@ -45,6 +44,7 @@ public class FollowsAdapter extends BaseAdapter {
         if(convertView==null)
             vi = inflater.inflate(R.layout.follows_row, null);
  
+        User user = users.get(position);
         TextView name = (TextView)vi.findViewById(R.id.follows_name); // name
         
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.follows_image); // thumb image

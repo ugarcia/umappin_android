@@ -4,9 +4,12 @@ package mdiss.umappin.fragments;
 
 import mdiss.umappin.R;
 
+import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.entities.User;
+import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -25,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ProfileFragment extends ListFragment implements OnClickListener{
+public class ProfileFragment extends Fragment implements OnClickListener{
 	
 	
 	/**
@@ -62,6 +65,8 @@ public class ProfileFragment extends ListFragment implements OnClickListener{
 	private ImageButton editEmailCancelButton;
 	
 	private Button saveProfileButton;
+	
+	private ImageButton showFollows;
 	
 	private InputMethodManager keyboard;
 
@@ -132,6 +137,8 @@ public class ProfileFragment extends ListFragment implements OnClickListener{
 		editEmailConfirmButton = (ImageButton)getView().findViewById(R.id.edit_email_confirm_button);
 		saveProfileButton = (Button)getView().findViewById(R.id.profile_save_button);
 		
+		showFollows = (ImageButton)getView().findViewById(R.id.show_follows);
+		
 		//Set Elements default values
 		name.setText(profileUser.getName());
 		firstName.setText(profileUser.getFirstName());
@@ -152,6 +159,8 @@ public class ProfileFragment extends ListFragment implements OnClickListener{
 		editEmailConfirmButton.setOnClickListener(this);
 		
 		saveProfileButton.setOnClickListener(this);
+		
+		showFollows.setOnClickListener(this);
 
 
 		
@@ -270,6 +279,11 @@ public class ProfileFragment extends ListFragment implements OnClickListener{
 			
 			profileUser.save(getActivity());
 			saveProfileButton.setVisibility(View.GONE);
+		}else if (v.getId() == this.showFollows.getId()){
+			getActivity().getActionBar().setTitle("Follows");
+			FollowsFragment fragment = new FollowsFragment();
+			fragment.setProfileData(profileUser);
+			getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 		}
 	}
 	

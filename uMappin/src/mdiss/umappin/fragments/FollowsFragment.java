@@ -67,10 +67,11 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
-		adapter=new FollowsAdapter(getActivity(), profileUser);
+		list=(ListView) getListView();
+		adapter=new FollowsAdapter(getActivity(), profileUser.getFollows());
         list.setAdapter(adapter);
-		
+        
+        
 
 
 		

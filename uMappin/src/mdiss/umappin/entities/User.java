@@ -21,14 +21,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 
 
 	private ArrayList<User> followed;
@@ -151,5 +144,13 @@ public class User {
 	
 	public void save(Activity activity){
 		new ProfileSaveAsyncTask(activity).execute(this);		
+	}
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
