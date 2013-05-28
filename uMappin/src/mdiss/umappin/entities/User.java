@@ -21,9 +21,11 @@ public class User {
 	private String id;
 	private String name;
 	private String photoUri;
+	private String photoId;
 	private String firstName;
 	private String lastName;
 	private String email;
+
 	public String getEmail() {
 		return email;
 	}
@@ -40,6 +42,7 @@ public class User {
 	
 	public User(JSONObject json) {
 		try {
+			this.photoId = json.getString("profilePicture");
 			this.photoUri = Constants.pictureUri+json.getString("profilePicture")+"/content";	
 			this.setId(json.getString("id"));
 			this.setName(json.getString("name"));
@@ -52,6 +55,16 @@ public class User {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 
+	}
+
+
+	public String getPhotoId() {
+		return photoId;
+	}
+
+
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
 	}
 
 

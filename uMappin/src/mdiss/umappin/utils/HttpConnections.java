@@ -14,8 +14,12 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -84,7 +88,7 @@ public class HttpConnections {
 	 * @param header the header of the request, we don't need token
 	 * @return the response body in a String
 	 */
-	public static String makePostRequest(String url,
+	public static String makeFormPostRequest(String url,
 			List<NameValuePair> body, List<NameValuePair> header,
 			Activity parentActivity) {
 		
@@ -112,8 +116,43 @@ public class HttpConnections {
 		lastResponse = responseBody;
 		return responseBody;
 	}	
-	public static String makePutRequest(String url,
-			List<NameValuePair> body, List<NameValuePair> header,
+	
+	public static String makeJsonPostRequest(String url,
+			JSONObject body, List<NameValuePair> header,
+			Activity parentActivity) {
+		
+		HttpClient httpclient = new DefaultHttpClient();
+		
+		HttpPost httppost = new HttpPost(url);
+		httppost.addHeader("token",Login.getToken());
+		Log.i("HTTP", "header = token: "+Login.getToken());
+		Log.i("HTTP", "PUT URL: " + url);
+		String responseBody = null;
+		try {
+			StringEntity se = new StringEntity( body.toString());
+            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+			httppost.setEntity(se);
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			responseBody = EntityUtils.toString(entity);
+			Log.i("HTTP", "PUT: Received JSON: " + responseBody);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		lastResponse = responseBody;
+		return responseBody;
+	}
+	
+	public static String makeJsonPutRequest(String url,
+			JSONObject body, List<NameValuePair> header,
 			Activity parentActivity) {
 		
 		HttpClient httpclient = new DefaultHttpClient();
@@ -124,7 +163,10 @@ public class HttpConnections {
 		Log.i("HTTP", "PUT URL: " + url);
 		String responseBody = null;
 		try {
-			httpput.setEntity(new UrlEncodedFormEntity(body));
+			StringEntity se = new StringEntity( body.toString());
+            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+			httpput.setEntity(se);
 			HttpResponse response = httpclient.execute(httpput);
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);

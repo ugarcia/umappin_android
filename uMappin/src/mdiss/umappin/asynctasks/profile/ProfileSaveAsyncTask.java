@@ -43,17 +43,22 @@ public class ProfileSaveAsyncTask extends AsyncTask<User, Void, Boolean> {
 		
 		User user = params[0];
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		nameValuePairs.add(new BasicNameValuePair("email", user.getEmail()));
-		nameValuePairs.add(new BasicNameValuePair("id", user.getId()));
-		nameValuePairs.add(new BasicNameValuePair("firstName", user.getFirstName()));
-		nameValuePairs.add(new BasicNameValuePair("lastName", user.getLastName()));
+        JSONObject jsonSend = new JSONObject();
 
+		
+        
 
 
 		try {
-			String responseBody = HttpConnections.makePutRequest(
+			jsonSend.put("email", user.getEmail());
+			jsonSend.put("id", user.getId());
+			jsonSend.put("firstName", user.getFirstName());
+			jsonSend.put("lastName", user.getLastName());
+			jsonSend.put("profilePicture",user.getPhotoId());
+			
+			String responseBody = HttpConnections.makeJsonPutRequest(
 					
-					Constants.userUri+"/"+user.getId(), nameValuePairs, null,
+					Constants.userUri, jsonSend, null,
 					activity);
 			JSONObject json = null;
 			if (responseBody.contains("User not found")) {

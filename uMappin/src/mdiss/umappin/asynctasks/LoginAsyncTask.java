@@ -44,7 +44,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 		nameValuePairs.add(new BasicNameValuePair("email", params[0]));
 		nameValuePairs.add(new BasicNameValuePair("password", params[1]));
 		try {
-			String responseBody = HttpConnections.makePostRequest(
+			String responseBody = HttpConnections.makeFormPostRequest(
 					Constants.uMappinUrl + "login", nameValuePairs, null,
 					activity);
 			JSONObject json = null;
