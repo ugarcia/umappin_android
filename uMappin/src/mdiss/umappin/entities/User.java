@@ -1,10 +1,7 @@
 package mdiss.umappin.entities;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import mdiss.umappin.R;
-import mdiss.umappin.asynctasks.profile.DownloadProfilePictureAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileSaveAsyncTask;
 import mdiss.umappin.utils.Constants;
 
@@ -14,7 +11,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 public class User {
 
@@ -46,12 +42,9 @@ public class User {
 			this.photoUri = Constants.pictureUri+json.getString("profilePicture")+"/content";	
 			this.setId(json.getString("id"));
 			this.setName(json.getString("name"));
-			this.setFirstName(json.getString("firstName"));
-			this.setLastName(json.getString("lastName"));
+			if (!json.isNull("firstName")) this.setFirstName(json.getString("firstName"));
+			if (!json.isNull("lastName")) this.setLastName(json.getString("lastName"));
 			this.setEmail(json.getString("email"));
-			
-			
-			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 
