@@ -8,12 +8,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -25,6 +27,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
 
@@ -136,6 +140,7 @@ public class HttpConnections {
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);
+			
 			Log.i("HTTP", "PUT: Received JSON: " + responseBody);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -185,9 +190,39 @@ public class HttpConnections {
 		return responseBody;
 	}	
 	
-	public static String getToken(Activity activity) {
-		SharedPreferences prefs = activity.getSharedPreferences(Constants.prefsName, Context.MODE_PRIVATE);
-		return prefs.getString("token", "default");
+	
+	public static Bitmap makeBitmapGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
+			Activity parentActivity) {
+		HttpUriRequest request = new HttpGet(url.toString());
+		request.addHeader("token",Login.getToken());
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpResponse response;
+		Log.i("HTTP", "GET Bitmap URL: " + url);
+
+		try {
+			response = httpClient.execute(request);
+			StatusLine statusLine = response.getStatusLine();
+	        int statusCode = statusLine.getStatusCode();
+	        if (statusCode == 200) {
+	            HttpEntity entity = response.getEntity();
+	            byte[] bytes = EntityUtils.toByteArray(entity);
+	 
+	            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
+	                    bytes.length);
+	            return bitmap;
+	        } else {
+	            throw new IOException("Download failed, HTTP response code "
+	                    + statusCode + " - " + statusLine.getReasonPhrase());
+	        }
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 	
 	public static boolean goToLoginIfneed(){

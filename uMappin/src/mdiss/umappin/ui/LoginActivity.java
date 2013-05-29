@@ -48,8 +48,8 @@ public class LoginActivity extends Activity {
 		Login.setParentActivity(this); //we need this to work
 		if (Login.savedData()) { // we have "user" in sharedpreferences
 			Login.login();
-			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-			startActivity(intent);
+			//Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+			//startActivity(intent);
 		} else {
 			setContentView(R.layout.activity_login);
 
