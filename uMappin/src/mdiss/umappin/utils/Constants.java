@@ -4,8 +4,8 @@ public class Constants {
 	
 	
 	// URIS
-	public static String uMappinUrl = "http://130.206.138.182/";
-	//public static String uMappinUrl = "http://10.172.104.17/";
+	//public static String uMappinUrl = "http://130.206.138.182/";
+	public static String uMappinUrl = "http://10.172.104.17/";
 	//public static String uMappinUrl ="http://10.0.2.2:9000/";//localhost from emulator
 	public static String pictureUri = uMappinUrl+"photos/";
 	public static String followsUri = uMappinUrl+"followsInfo";
