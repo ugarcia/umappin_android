@@ -11,12 +11,14 @@ import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownload
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
+import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
 import mdiss.umappin.utils.AlbumStorageDirFactory;
 import mdiss.umappin.utils.BaseAlbumDirFactory;
 import mdiss.umappin.utils.Constants;
+import mdiss.umappin.utils.GeoMethods;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,7 +63,7 @@ public class MainActivity extends MapActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Games", "Take a photo" };
+	private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Routes", "Games", "Take a photo" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +168,11 @@ public class MainActivity extends MapActivity {
 				MapFragment fragment = new MapFragment();
 				getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 				break;
-			case 4:// Games
+			case 4:
+				getActionBar().setTitle("My routes");
+				new RoutesAsyncTask(MainActivity.this).execute("");
+				break;
+			case 5:// Games
 				getActionBar().setTitle("Play!");
 				break;
 			default:// Take a photo

@@ -1,5 +1,8 @@
 package mdiss.umappin.utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mapsforge.core.GeoPoint;
 
 import android.content.Context;
@@ -8,6 +11,8 @@ import android.location.LocationManager;
 import android.util.Log;
 
 public class GeoMethods {
+	
+	public static final int EQUATORIALRADIUS=6378137;
 	
 	/**
 	 * @param context Receives the Context needed to use Location Service
@@ -38,5 +43,25 @@ public class GeoMethods {
 			//TODO show something if can't get location
 			return new GeoPoint(42.6, -2.92);
 		}
+	}
+	
+	public static Double getDistance(GeoPoint p1, GeoPoint p2) {
+		double dLat = p2.getLatitude()-p1.getLatitude();
+		double dLon = p2.getLongitude()-p1.getLongitude();
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(p1.getLatitude()))
+		        * Math.cos(Math.toRadians(p2.getLatitude())) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		    double distance = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		    return distance * EQUATORIALRADIUS;
+	}
+	
+	public static JSONObject getGeoJSON(GeoPoint point) {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("type", "Point");
+			json.put("coordinates",new JSONArray().put(point.getLatitude()).put(point.getLongitude()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 }

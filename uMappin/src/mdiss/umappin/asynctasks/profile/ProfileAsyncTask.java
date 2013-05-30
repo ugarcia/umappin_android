@@ -1,13 +1,11 @@
 package mdiss.umappin.asynctasks.profile;
 
 import mdiss.umappin.R;
-import mdiss.umappin.asynctasks.general.GetFollowsAsyncTask;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,12 +34,12 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	@Override
 	protected JSONObject doInBackground(Void... arg0) {
 		String response = HttpConnections.makeGetRequest(Constants.uMappinUrl + "sessionuser", null, null, activity);
-		JSONArray array=new JSONArray();
-		try {
-			array = new JSONArray(response);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+//		JSONArray array=new JSONArray();
+//		try {
+//			array = new JSONArray(response);
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
 		JSONObject jsonO =null;
 		try {
 			jsonO = new JSONObject(response);

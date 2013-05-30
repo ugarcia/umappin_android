@@ -3,7 +3,6 @@ package mdiss.umappin.asynctasks;
 import mdiss.umappin.R;
 import mdiss.umappin.entities.Discussion;
 import mdiss.umappin.fragments.DiscussionHeadersFragment;
-import mdiss.umappin.ui.LoginActivity;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 
@@ -12,7 +11,6 @@ import org.json.JSONException;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 

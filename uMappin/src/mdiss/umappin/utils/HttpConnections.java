@@ -24,16 +24,12 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.util.Log;
 
 import mdiss.umappin.ui.LoginActivity;
-import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Login;
 
 public class HttpConnections {
@@ -49,6 +45,7 @@ public class HttpConnections {
 	static Activity parentAct;
 	static String lastUrl;
 	static List<NameValuePair> lastBody;
+	static String jsonBody;
 	static List<NameValuePair> lastHeader;
 	static String lastResponse;
 	private static Boolean loginFinish =false;
@@ -57,6 +54,38 @@ public class HttpConnections {
 			Activity parentActivity) {
 		parentAct = parentActivity;
 		lastBody =body;
+		lastHeader = header;
+		lastUrl = url;
+	
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet(url);
+		httpget.addHeader("token",Login.getToken());
+		Log.i("HTTP", "header = token: "+Login.getToken());
+		Log.i("HTTP", "GET URL: " + url);
+		
+		String responseBody = null;
+		try {
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			
+			responseBody = EntityUtils.toString(entity);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.i("HTTP", "GET response: " + responseBody);
+
+		lastResponse = responseBody;
+		return responseBody;
+	}
+	
+	public static String makeGetJSONRequest(String url, String  body, List<NameValuePair> header,
+			Activity parentActivity) {
+		parentAct = parentActivity;
+		jsonBody =body;
 		lastHeader = header;
 		lastUrl = url;
 	
@@ -130,7 +159,7 @@ public class HttpConnections {
 		HttpPost httppost = new HttpPost(url);
 		httppost.addHeader("token",Login.getToken());
 		Log.i("HTTP", "header = token: "+Login.getToken());
-		Log.i("HTTP", "PUT URL: " + url);
+		Log.i("HTTP", "POST URL: " + url);
 		String responseBody = null;
 		try {
 			StringEntity se = new StringEntity( body.toString());
@@ -141,7 +170,7 @@ public class HttpConnections {
 			HttpEntity entity = response.getEntity();
 			responseBody = EntityUtils.toString(entity);
 			
-			Log.i("HTTP", "PUT: Received JSON: " + responseBody);
+			Log.i("HTTP", "POST: Received JSON: " + responseBody);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {

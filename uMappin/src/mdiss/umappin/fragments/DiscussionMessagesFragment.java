@@ -68,7 +68,7 @@ public class DiscussionMessagesFragment extends ListFragment{
 				//TODO send message with "text" and discussion.getId()
 				
 				//Clean the back stack and request again the messages (with new message included)
-				//TODO instead of requesting all info again create inside the app the new message
+				//TODO core---- instead of requesting all info again create inside the app the new message
 				getFragmentManager().popBackStack();
 				new DiscussionMessagesAsyncTask(getActivity()).execute(discussion.getId());
 			}

@@ -1,16 +1,11 @@
 package mdiss.umappin.ui;
 
 import mdiss.umappin.R;
-import mdiss.umappin.asynctasks.LoginAsyncTask;
-import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.Login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;

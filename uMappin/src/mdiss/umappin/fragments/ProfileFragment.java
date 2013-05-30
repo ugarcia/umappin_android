@@ -4,14 +4,10 @@ package mdiss.umappin.fragments;
 
 import mdiss.umappin.R;
 
-import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.entities.User;
-import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.ListFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ProfileFragment extends Fragment implements OnClickListener{

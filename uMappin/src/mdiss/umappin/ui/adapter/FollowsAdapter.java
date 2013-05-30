@@ -1,11 +1,9 @@
 package mdiss.umappin.ui.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import mdiss.umappin.R;
 import mdiss.umappin.entities.User;
- 
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;

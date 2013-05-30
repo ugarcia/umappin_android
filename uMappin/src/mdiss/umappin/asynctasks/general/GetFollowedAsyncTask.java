@@ -12,7 +12,6 @@ import mdiss.umappin.utils.HttpConnections;
 import android.app.Activity;
 
 import android.os.AsyncTask;
-import android.os.Looper;
 
 
 public class GetFollowedAsyncTask extends AsyncTask<String, Void, JSONArray> {
