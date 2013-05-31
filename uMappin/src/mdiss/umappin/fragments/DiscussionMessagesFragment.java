@@ -1,8 +1,12 @@
 package mdiss.umappin.fragments;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionMessagesAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
+import mdiss.umappin.asynctasks.ReplyMessagAsyncTask;
 import mdiss.umappin.entities.Discussion;
 
 import android.app.ListFragment;
@@ -65,9 +69,17 @@ public class DiscussionMessagesFragment extends ListFragment{
 			@Override
 			public void onClick(View v) {
 				String text = mReplyText.getText().toString();
-				//TODO send message with "text" and discussion.getId()
 				
-				//Clean the back stack and request again the messages (with new message included)
+				JSONObject json = new JSONObject();
+				try {
+				json.put("discussion_id", discussion.getId());
+				json.put("message",text);
+				new ReplyMessagAsyncTask().execute(json);
+				getFragmentManager().popBackStack();
+				new DiscussionMessagesAsyncTask(getActivity()).execute(discussion.getId());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 				//TODO core---- instead of requesting all info again create inside the app the new message
 				getFragmentManager().popBackStack();
 				new DiscussionMessagesAsyncTask(getActivity()).execute(discussion.getId());

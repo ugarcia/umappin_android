@@ -22,6 +22,8 @@ public class Constants {
 	public static String logMap = "Map";
 	public static String picturePointName= "The picture is here";
 	public static String picturePointDesc= "Current picture";
+	public static String logMessages = "logMessages";
+	public static String logImageUtils = "logImageUtils";
 	
 	public static String unauthorizedError = "Unauthorized operation";
 	

@@ -43,6 +43,7 @@ public class MapFragment extends Fragment {
 
 	public void showRoute(List<GeoPoint> route) {
 		if (!route.isEmpty()) {
+			mapView.setCenter(route.get(0));
 			Paint wayPaint = new Paint();
 			wayPaint.setColor(color.Chocolate);
 			wayPaint.setStyle(Paint.Style.FILL);
@@ -59,7 +60,7 @@ public class MapFragment extends Fragment {
 			wayPaint.setStrokeCap(Cap.ROUND);
 			wayPaint.setStrokeJoin(Paint.Join.ROUND);
 			ArrayWayOverlay wayOverlay = new ArrayWayOverlay(wayPaint, wayPaint2);
-
+			
 			OverlayWay way = new OverlayWay(new GeoPoint[][] { route.toArray(new GeoPoint[0]) }, wayPaint, wayPaint2);
 			wayOverlay.addWay(way);
 			mapView.getOverlays().add(wayOverlay);

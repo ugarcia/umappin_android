@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * A GeoPoint represents an immutable pair of latitude and longitude coordinates.
  */
@@ -128,6 +131,17 @@ public class GeoPoint implements Comparable<GeoPoint>, Serializable {
 		stringBuilder.append(this.longitudeE6);
 		stringBuilder.append("]");
 		return stringBuilder.toString();
+	}
+	
+	public JSONArray toJSONArray() {
+		JSONArray array = new JSONArray();
+		try {
+			array.put(getLatitude());
+			array.put(getLongitude());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return array;
 	}
 
 	/**

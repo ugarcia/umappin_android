@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.util.Log;
 
 import mdiss.umappin.ui.LoginActivity;
@@ -220,8 +221,7 @@ public class HttpConnections {
 	}	
 	
 	
-	public static Bitmap makeBitmapGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
-			Activity parentActivity) {
+	public static Bitmap makeBitmapGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header) {
 		HttpUriRequest request = new HttpGet(url.toString());
 		request.addHeader("token",Login.getToken());
         HttpClient httpClient = new DefaultHttpClient();
@@ -235,7 +235,7 @@ public class HttpConnections {
 	        if (statusCode == 200) {
 	            HttpEntity entity = response.getEntity();
 	            byte[] bytes = EntityUtils.toByteArray(entity);
-	 
+	            
 	            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
 	                    bytes.length);
 	            return bitmap;
@@ -244,10 +244,8 @@ public class HttpConnections {
 	                    + statusCode + " - " + statusLine.getReasonPhrase());
 	        }
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
