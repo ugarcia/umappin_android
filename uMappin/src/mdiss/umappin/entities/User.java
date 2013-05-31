@@ -1,15 +1,20 @@
 package mdiss.umappin.entities;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import mdiss.umappin.asynctasks.general.DownloadPictureAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileSaveAsyncTask;
+import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 
+import org.apache.http.HttpConnection;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.graphics.Bitmap;
 
 public class User {
@@ -31,7 +36,14 @@ public class User {
 	public User(JSONObject json) {
 		try {
 			this.photoId = json.getString("profilePicture");
-			this.photoUri = Constants.pictureUri+json.getString("profilePicture")+"/content";	
+			//Trash but,... no want to fight with server side,...
+			if (json.getString("profilePicture").contains("content")){ //follows
+				this.photoUri = Constants.uMappinUrl.substring(0, Constants.uMappinUrl.length() -1)+
+						json.getString("profilePicture");
+			}else{//sessionUser
+				this.photoUri = Constants.pictureUri+json.getString("profilePicture")+"/content";	
+
+			}
 			this.setId(json.getString("id"));
 			this.setName(json.getString("name"));
 			if (!json.isNull("firstName")) this.setFirstName(json.getString("firstName"));
@@ -152,5 +164,25 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+	public void getFollowsImages(Activity pActivity) {
+		for (User follow : this.getFollows()){
+			String uri = follow.getPhotoUri();
+			DownloadPictureAsyncTask downPick = new DownloadPictureAsyncTask(pActivity);
+			Bitmap image =null;
+			try {
+				image = downPick.execute(uri).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			follow.setProfilePicture(image);
+		}
+		
 	}
 }

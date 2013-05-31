@@ -14,10 +14,12 @@ public class DownloadProfilePictureAsyncTaskProfile extends DownloadPictureAsync
 
 
 	User user;
+	ProfileFragment fragment;
 
 	public DownloadProfilePictureAsyncTaskProfile(User pUser,Activity pActivity, ProfileFragment pFragment) {
-		super(pActivity, pFragment);
+		super(pActivity);
 		user = pUser;
+		fragment = pFragment;
 	}
 
 	

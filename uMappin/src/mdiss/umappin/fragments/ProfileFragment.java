@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,9 +78,16 @@ public class ProfileFragment extends Fragment implements OnClickListener{
 				break;
 			case Constants.profileFollows:
 				followsNumber.setText(profileUser.getFollows().size()+"");
+				showFollows.setEnabled(true);
+				new Thread(){ //don't want to stop the UI
+					public void run(){
+						profileUser.getFollowsImages(getActivity());
+					}
+				}.start();
 				break;
 			case Constants.profileFollowed:
 				followedNumber.setText(profileUser.getFollowed().size()+"");
+				
 				break;
 				
 			}
@@ -156,6 +164,9 @@ public class ProfileFragment extends Fragment implements OnClickListener{
 		saveProfileButton.setOnClickListener(this);
 		
 		showFollows.setOnClickListener(this);
+		showFollows.setEnabled(false); //not clickable before follows loaded
+		
+
 
 
 		
@@ -275,7 +286,7 @@ public class ProfileFragment extends Fragment implements OnClickListener{
 			profileUser.save(getActivity());
 			saveProfileButton.setVisibility(View.GONE);
 		}else if (v.getId() == this.showFollows.getId()){
-			getActivity().getActionBar().setTitle("Follows");
+			getActivity().getActionBar().setTitle(profileUser.getName()+"'s Follows");
 			FollowsFragment fragment = new FollowsFragment();
 			fragment.setProfileData(profileUser);
 			getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();

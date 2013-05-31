@@ -5,7 +5,7 @@ package mdiss.umappin.fragments;
 import mdiss.umappin.R;
 
 import mdiss.umappin.entities.User;
-import mdiss.umappin.ui.adapter.FollowsAdapter;
+import mdiss.umappin.ui.adapter.FollowingAdapter;
 import mdiss.umappin.utils.Constants;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	
 
 	private ListView list;
-	private FollowsAdapter adapter;
+	private FollowingAdapter adapter;
 
 
 	private final Handler myHandler = new Handler(){
@@ -58,7 +58,7 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		list=(ListView) getListView();
-		adapter=new FollowsAdapter(getActivity(), profileUser.getFollows());
+		adapter=new FollowingAdapter(getActivity(), profileUser.getFollows());
         list.setAdapter(adapter);
         
         

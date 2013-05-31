@@ -5,6 +5,7 @@ import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.HttpConnections;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,12 +13,9 @@ import android.util.Log;
 public class DownloadPictureAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
 
-	public User user;
 	public Activity activity;
-	public ProfileFragment fragment;
-	public DownloadPictureAsyncTask(Activity pActivity, ProfileFragment pFragment) {
+	public DownloadPictureAsyncTask(Activity pActivity) {
 		this.activity = pActivity;
-		this.fragment = pFragment;
 	}
 
 	protected Bitmap doInBackground(String... urls) {
@@ -25,7 +23,10 @@ public class DownloadPictureAsyncTask extends AsyncTask<String, Void, Bitmap> {
 		Bitmap mIcon11 = null;
 		
 		mIcon11 = HttpConnections.makeBitmapGetRequest(urldisplay, null, null, activity);
+		Log.i("DownloadPicture", urldisplay);
+
 		return mIcon11;
+
  
         
 	}
@@ -33,7 +34,6 @@ public class DownloadPictureAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	
 
 	protected void onPostExecute(Bitmap result) {
-		Log.i("some", "There");
 	}
 
 
