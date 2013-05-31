@@ -18,7 +18,6 @@ import mdiss.umappin.fragments.PictureFragment;
 import mdiss.umappin.utils.AlbumStorageDirFactory;
 import mdiss.umappin.utils.BaseAlbumDirFactory;
 import mdiss.umappin.utils.Constants;
-import mdiss.umappin.utils.GeoMethods;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;

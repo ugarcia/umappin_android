@@ -99,7 +99,6 @@ public class Route {
 
 	public double getDistance() {// in kilometers
 		double distance = 0.0;
-
 		for (int i = 0; i < routePoints.size() - 1; i++) {
 			// we are already avoiding single points and not routes to enter
 			// here

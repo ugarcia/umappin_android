@@ -45,7 +45,7 @@ public class RouteFragment extends ListFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				MapFragment fragment = new MapFragment();
-				fragment.showRoute(routes.get(position).getRoutePoints());
+				fragment.showRoute(routes.get(position-1).getRoutePoints());
 				getActivity().getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment).commit();
 			}
 		});
