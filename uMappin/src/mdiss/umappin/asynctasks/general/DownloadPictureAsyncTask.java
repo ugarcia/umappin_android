@@ -24,14 +24,10 @@ public class DownloadPictureAsyncTask extends AsyncTask<String, Void, Bitmap> {
 		String urldisplay = urls[0];
 		Bitmap mIcon11 = null;
 		
-		mIcon11 = HttpConnections.makeBitmapGetRequest(urldisplay, null, null, activity);
+		mIcon11 = HttpConnections.makeBitmapGetRequest(urldisplay, null, null);
 		return mIcon11;
- 
-        
 	}
 	
-	
-
 	protected void onPostExecute(Bitmap result) {
 		Log.i("some", "There");
 	}

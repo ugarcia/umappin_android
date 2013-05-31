@@ -44,7 +44,6 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 		try {
 			jsonO = new JSONObject(response);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return jsonO;

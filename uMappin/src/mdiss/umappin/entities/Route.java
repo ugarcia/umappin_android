@@ -2,13 +2,12 @@ package mdiss.umappin.entities;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import mdiss.umappin.utils.GeoMethods;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +19,16 @@ public class Route {
 	private String name;
 	private int difficulty;
 	private List<GeoPoint> routePoints;
-	private Set<String> tags;
+	private List<BasicNameValuePair> tags;
 
+	public Route(String id, String name, int difficulty, List<GeoPoint> points, List<BasicNameValuePair> tags) {
+		this.id=id;
+		this.name=name;
+		this.difficulty=difficulty;
+		this.routePoints=points;
+		this.tags=tags;
+	}
+	
 	public Route(JSONObject json) {
 		try {
 			this.id = json.getString("id");
@@ -29,7 +36,7 @@ public class Route {
 			this.difficulty = json.getInt("difficulty");
 
 			routePoints = new ArrayList<GeoPoint>();
-			tags = new HashSet<String>();
+			tags = new ArrayList<BasicNameValuePair>();
 
 			if (!json.isNull("geometry")) {
 				JSONObject geometry = json.getJSONObject("geometry");
@@ -43,7 +50,8 @@ public class Route {
 				JSONObject properties = json.getJSONObject("properties");
 				Iterator<?> keys = properties.keys();
 				while (keys.hasNext()) {
-					tags.add((String) keys.next());
+					String key = (String) keys.next();
+					tags.add(new BasicNameValuePair(key,properties.getString(key)));
 				}
 			}
 		} catch (JSONException e) {
@@ -67,18 +75,24 @@ public class Route {
 		return routePoints;
 	}
 
-	public Set<String> getTags() {
+	public List<BasicNameValuePair> getTags() {
 		return tags;
 	}
 
+	public void addPoint(GeoPoint point) {
+		this.routePoints.add(point);
+	}
+	
 	public String getTagsToString() {
 		String ret = "";
-		Iterator<String> iterator = this.tags.iterator();
+		Iterator<BasicNameValuePair> iterator = this.tags.iterator();
 		if (iterator.hasNext()) {
-			ret = iterator.next();
+			BasicNameValuePair vp = iterator.next();
+			ret = vp.getName() + ": " + vp.getValue();
 		}
 		while (iterator.hasNext()) {
-			ret = ret + ", " + iterator.next();
+			BasicNameValuePair vp = iterator.next();
+			ret = ret + ", " + vp.getName() + ": " + vp.getValue();
 		}
 		return ret;
 	}
@@ -99,6 +113,35 @@ public class Route {
 		return Double.valueOf(twoDForm.format(d));
 	}
 
+	public JSONObject toGeoJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("id",this.id);
+			json.put("name",this.name);
+			json.put("difficulty",this.difficulty);
+			JSONArray coords = new JSONArray();
+			Iterator<GeoPoint> iter = this.routePoints.iterator();
+			while (iter.hasNext()) {
+				coords.put(iter.next().toJSONArray());
+			}
+			JSONObject geometry = new JSONObject();
+			geometry.put("type","LineString");
+			geometry.put("coordinates",coords);
+			json.put("geometry",geometry);
+			
+			JSONObject tagJSON = new JSONObject();
+			Iterator<BasicNameValuePair> tagIter = tags.iterator();
+			while (tagIter.hasNext()) {
+				BasicNameValuePair vp = tagIter.next();
+				tagJSON.put(vp.getName(), vp.getValue());
+			}
+			json.put("properties",tagJSON);
+		} catch(JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
 	public static List<Route> routesFromJSON(JSONArray array) {
 		ArrayList<Route> list = new ArrayList<Route>();
 		for (int i = 0; i < array.length(); i++) {

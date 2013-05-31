@@ -1,12 +1,13 @@
 package mdiss.umappin.adapters;
 
 import mdiss.umappin.R;
+import mdiss.umappin.asynctasks.ImageDownloadAsyncTask;
 import mdiss.umappin.entities.Discussion;
 import mdiss.umappin.entities.Message;
+import mdiss.umappin.utils.Constants;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,8 @@ public class DiscussionMessagesAdapter extends BaseAdapter {
 		mUser.setText(item.getUser().getName());
 		
 		mUserImage = (ImageView) view.findViewById(R.id.userImage);
-		mUserImage.setImageURI(Uri.parse(item.getUser().getPhoto()));
+		String urlPhoto = Constants.uMappinUrl.substring(0, Constants.uMappinUrl.length()-1) + item.getUser().getPhoto();
+		new ImageDownloadAsyncTask(mUserImage).execute(urlPhoto);
 		
 		mText = (TextView) view.findViewById(R.id.text);
 		mText.setText(item.getText());
