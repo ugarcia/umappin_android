@@ -1,13 +1,10 @@
 package mdiss.umappin.asynctasks.profile;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import mdiss.umappin.entities.User;
 import mdiss.umappin.exceptions.UserNotFoundException;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
-import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,11 +28,7 @@ public class ProfileSaveAsyncTask extends AsyncTask<User, Void, Boolean> {
 	protected Boolean doInBackground(User... params) {
 		
 		User user = params[0];
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         JSONObject jsonSend = new JSONObject();
-
-		
-        
 
 
 		try {

@@ -1,28 +1,21 @@
 package mdiss.umappin.ui.adapter;
 
-import java.io.Console;
 import java.util.ArrayList;
 
 import mdiss.umappin.R;
 import mdiss.umappin.entities.User;
 import android.app.Activity;
 import android.content.Context;
-import android.location.GpsStatus.Listener;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
-import android.widget.AdapterView;
+
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
  
 public class FollowingAdapter extends BaseAdapter implements OnClickListener{
  
@@ -74,6 +67,8 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
 	public void onClick(View v) {
 		if (v.getId() == unfollowButton.getId()){
 			User currentUser = (User)v.getTag();
+			users.remove(currentUser);
+			notifyDataSetChanged();
 			
 			//TODO
 			
