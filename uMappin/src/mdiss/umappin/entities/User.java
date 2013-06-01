@@ -173,7 +173,17 @@ public class User {
 
 
 	public void getFollowsImages(Activity pActivity) {
-		for (User follow : this.getFollows()){
+		getUsersListImages(pActivity, this.getFollows());
+		
+	}
+	
+	public void getFollowedImages(Activity pActivity){
+		getUsersListImages(pActivity, this.getFollowed());
+
+	}
+	
+	public void getUsersListImages(Activity pActivity, ArrayList<User> users){
+		for (User follow : users){
 			String uri = follow.getPhotoUri();
 			DownloadPictureAsyncTask downPick = new DownloadPictureAsyncTask(pActivity);
 			Bitmap image =null;
@@ -188,6 +198,5 @@ public class User {
 			}
 			follow.setProfilePicture(image);
 		}
-		
 	}
 }

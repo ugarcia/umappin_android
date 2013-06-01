@@ -62,6 +62,7 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 	private Button saveProfileButton;
 	
 	private ImageButton showFollows;
+	private ImageButton showFollowed;
 	
 	private InputMethodManager keyboard;
 
@@ -85,7 +86,12 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 				break;
 			case Constants.profileFollowed:
 				followedNumber.setText(profileUser.getFollowed().size()+"");
-				
+				showFollowed.setEnabled(true);
+				new Thread(){ //don't want to stop the UI
+					public void run(){
+						profileUser.getFollowedImages(getActivity());
+					}
+				}.start();
 				break;
 				
 			}
@@ -139,7 +145,8 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 		saveProfileButton = (Button)getView().findViewById(R.id.profile_save_button);
 		
 		showFollows = (ImageButton)getView().findViewById(R.id.show_follows);
-		
+		showFollowed = (ImageButton)getView().findViewById(R.id.show_followed);
+
 		//Set Elements default values
 		name.setText(profileUser.getName());
 		firstName.setText(profileUser.getFirstName());
@@ -164,6 +171,8 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 		showFollows.setOnClickListener(this);
 		showFollows.setEnabled(false); //not clickable before follows loaded
 		
+		showFollowed.setOnClickListener(this);
+		showFollowed.setEnabled(false); //not clickable before followed loaded
 
 
 
@@ -286,7 +295,12 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 		}else if (v.getId() == this.showFollows.getId()){
 			getActivity().getActionBar().setTitle(profileUser.getName()+"'s Follows");
 			FollowsFragment fragment = new FollowsFragment();
-			fragment.setProfileData(profileUser);
+			fragment.setProfileData(profileUser, true);
+			getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}else if (v.getId() == this.showFollowed.getId()){
+			getActivity().getActionBar().setTitle(profileUser.getName()+"'s Followers");
+			FollowsFragment fragment = new FollowsFragment();
+			fragment.setProfileData(profileUser, false);
 			getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 		}
 	}

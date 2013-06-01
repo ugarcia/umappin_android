@@ -6,11 +6,8 @@ import mdiss.umappin.R;
 
 import mdiss.umappin.entities.User;
 import mdiss.umappin.ui.adapter.FollowingAdapter;
-import mdiss.umappin.utils.Constants;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,28 +22,19 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	 * goes wrong. Then use setDiscussionHeaders. 
 	 */
 	private User profileUser;
-	
+	private Boolean followsFollowed; //false follows True followed
 
 	private ListView list;
 	private FollowingAdapter adapter;
 
 
-	private final Handler myHandler = new Handler(){
-		public void handleMessage(final Message msg){
-			switch (msg.what){
-			case Constants.profilePicture:
-				
-				break;
-			
-				
-			}
-		}
-	};
+
 	public FollowsFragment() {
 	}
 	
-	public void setProfileData(User pUser){
+	public void setProfileData(User pUser,Boolean followsFollowed){
 		profileUser = pUser;
+		this.followsFollowed = followsFollowed;
 	}
 
 	@Override
@@ -58,17 +46,20 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		list=(ListView) getListView();
-		adapter=new FollowingAdapter(getActivity(), profileUser.getFollows());
+		
+		if(followsFollowed){
+			//Following Adapter have to change to followeds
+			//TODO
+			adapter=new FollowingAdapter(getActivity(), profileUser.getFollows());
+		}else{
+			adapter=new FollowingAdapter(getActivity(), profileUser.getFollowed());
+
+		}
+		
         list.setAdapter(adapter);
-        
-        
-
-
 		
 	}
-	public  Handler getMyhandler() {
-		return myHandler;
-	}
+
 
 	@Override
 	public void onClick(View v) {
