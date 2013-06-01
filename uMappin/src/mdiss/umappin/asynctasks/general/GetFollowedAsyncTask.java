@@ -19,11 +19,9 @@ public class GetFollowedAsyncTask extends AsyncTask<String, Void, JSONArray> {
 
 	User user;
 	public Activity activity;
-	public ProfileFragment fragment;
-	public GetFollowedAsyncTask(User pUser,Activity pActivity, ProfileFragment pFragment) {
+	public GetFollowedAsyncTask(User pUser,Activity pActivity) {
 		this.user = pUser;
 		this.activity = pActivity;
-		this.fragment = pFragment;
 	}
 
 	protected JSONArray doInBackground(String... urls) {

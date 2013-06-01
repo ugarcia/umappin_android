@@ -5,20 +5,23 @@ import org.json.JSONArray;
 
 import mdiss.umappin.asynctasks.general.GetFollowedAsyncTask;
 import mdiss.umappin.entities.User;
+import mdiss.umappin.fragments.HandleredFragment;
 import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 
 import android.app.Activity;
+import android.app.Fragment;
 
 import android.os.Looper;
 
 
 public class GetFollowedAsyncTaskProfile extends GetFollowedAsyncTask {
 
-
+	HandleredFragment fragment;
 	
-	public GetFollowedAsyncTaskProfile(User pUser,Activity pActivity, ProfileFragment pFragment) {
-		super(pUser, pActivity, pFragment);
+	public GetFollowedAsyncTaskProfile(User pUser,Activity pActivity, HandleredFragment pFragment) {
+		super(pUser, pActivity);
+		this.fragment = pFragment;
 	}
 
 	

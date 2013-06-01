@@ -20,10 +20,9 @@ public class GetFollowsAsyncTask extends AsyncTask<String, Void, JSONArray> {
 	public User user;
 	public  Activity activity;
 	public ProfileFragment fragment;
-	public GetFollowsAsyncTask(User pUser,Activity pActivity, ProfileFragment pFragment) {
+	public GetFollowsAsyncTask(User pUser,Activity pActivity) {
 		this.user = pUser;
 		this.activity = pActivity;
-		this.fragment = pFragment;
 	}
 
 	protected JSONArray doInBackground(String... urls) {

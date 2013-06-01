@@ -34,6 +34,10 @@ public class User {
 	private Bitmap profilePicture =null;
 	
 	public User(JSONObject json) {
+		setInitData(json);
+	}
+	
+	public void setInitData(JSONObject json){
 		try {
 			this.photoId = json.getString("profilePicture");
 			//Trash but,... no want to fight with server side,...
@@ -52,6 +56,7 @@ public class User {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 
+		
 	}
 
 

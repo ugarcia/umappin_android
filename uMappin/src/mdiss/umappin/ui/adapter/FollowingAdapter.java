@@ -3,6 +3,7 @@ package mdiss.umappin.ui.adapter;
 import java.util.ArrayList;
 
 import mdiss.umappin.R;
+import mdiss.umappin.asynctasks.profile.OthersProfileAsyncTask;
 import mdiss.umappin.entities.User;
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +24,7 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
     private static LayoutInflater inflater=null;
     ArrayList<User> users;
     ImageButton unfollowButton;
+    TextView name;
  
     public FollowingAdapter(Activity a, ArrayList<User> pUsers){
         activity = a;
@@ -48,7 +50,7 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
             vi = inflater.inflate(R.layout.follows_row, null);
  
         User user = users.get(position);
-        TextView name = (TextView)vi.findViewById(R.id.follows_name); // name
+        name = (TextView)vi.findViewById(R.id.follows_name); // name
         
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.follows_image); // thumb image
         
@@ -57,21 +59,25 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
         unfollowButton.setTag(user); //Binding the user to the button
         unfollowButton.setOnClickListener(this);
         name.setText(user.getName());
+        name.setTag(user);
  
- 
+        name.setOnClickListener(this);
 
         return vi;
     }
 
 	@Override
 	public void onClick(View v) {
+		User currentUser = (User)v.getTag();
+
 		if (v.getId() == unfollowButton.getId()){
-			User currentUser = (User)v.getTag();
 			users.remove(currentUser);
 			notifyDataSetChanged();
 			
 			//TODO
 			
+		}if (v.getId() == name.getId()){
+			new OthersProfileAsyncTask(activity).execute(currentUser);
 		}
 		
 	}

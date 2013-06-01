@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+>
+
+		<ScrollView
+		    android:id="@+id/profile_scroll_view"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		   >
+		
+		<LinearLayout 
+		    android:id="@+id/profileView"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:background="@color/background">
+		
+		    <RelativeLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" >
+		
+			<ImageView
+			    android:id="@+id/profileImage"
+			    android:layout_width="fill_parent"
+			    android:layout_height="200dip"
+			    android:background="@color/darkBackground"/>
+		
+		    <TextView
+		        android:id="@+id/firstName"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center"
+		        android:textAlignment="center"
+		        android:textSize="40.0sp" 
+		        android:background="@color/TransparentBackground"
+		        android:textColor="@color/White"
+		        android:layout_alignBottom="@id/profileImage"
+		    	/>
+		    </RelativeLayout>
+		    
+		<!-- Social Info START -->
+		    <LinearLayout
+		        android:id="@+id/profileSocialInfo"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" 
+		        android:orientation="vertical"
+		        android:paddingLeft="10dip"
+		        android:paddingRight="10dip"
+		        android:layout_marginTop="@dimen/profile_block"  
+		        >
+		        <TextView 
+		    		android:layout_width="fill_parent"
+		    		android:layout_height="wrap_content"
+		    		android:textSize="20.0sp"
+		    		android:textAllCaps="true" 
+		    		android:text="@string/social_info_title"
+		    		android:textColor="@color/titles"
+		    	/>
+		    	<View
+		                android:layout_width="fill_parent"
+		                android:layout_height="1dp"
+		                android:visibility="visible"
+		                android:background="@color/titles"
+		   		 />
+		    
+		        <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_follows_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/follows_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileFollowsNumber"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_follows_label"
+				        android:layout_marginLeft="5dip"
+		        	/>
+		
+		           
+		
+		        </RelativeLayout>
+		         <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		         <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_followed_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/followeds_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileFollowedNumber"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_followed_label"
+				       	android:layout_marginLeft="5dip"
+				       
+		        	/>
+		
+		           
+		
+		        </RelativeLayout>
+		         <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		         
+		        
+		        
+		    </LinearLayout>
+		<!-- Social Info END -->
+		<!-- Personal Info START -->
+		    <LinearLayout
+		        android:id="@+id/personalInfo"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" 
+		        android:orientation="vertical"
+		        android:paddingLeft="10dip"
+		        android:paddingRight="10dip"
+		        android:layout_marginTop="@dimen/profile_block">
+		        <TextView 
+		    		android:layout_width="fill_parent"
+		    		android:layout_height="wrap_content"
+		    		android:textSize="20.0sp"
+		    		android:textAllCaps="true" 
+		    		android:text="@string/personal_info_title"
+		    		android:textColor="@color/titles"
+		    		android:layout_marginTop="10dip"  
+		    	/>
+		    	<View
+		                android:layout_width="fill_parent"
+		                android:layout_height="1dp"
+		                android:visibility="visible"
+		                android:background="@color/titles"
+		   		 />
+		    	<RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_first_name_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/first_name_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileFirstName"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_first_name_label"
+				        android:layout_marginLeft="5dip"
+				        
+		        	/>
+		            
+		            
+		          
+		           
+		            
+		
+		           
+		            
+		
+		        </RelativeLayout>
+		         <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		         
+		         <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_last_name_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/last_name_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileLastName"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_last_name_label"
+				        android:layout_marginLeft="5dip"
+		        	/>
+		
+		           
+		            
+		
+		        </RelativeLayout>
+		        <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		         
+		         <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_marginTop="@dimen/profile_subBlock"
+		            android:layout_marginBottom="@dimen/profile_subBlock">
+		             <TextView 
+		                android:id="@+id/profile_email_label"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				        android:layout_centerVertical="true"
+				        android:text="@string/email_label" 
+		        	/>
+		            <TextView 
+				        android:id="@+id/profileEmail"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="20.0sp"
+				       	android:layout_centerVertical="true"
+				        android:layout_toRightOf="@id/profile_email_label"
+				        android:layout_marginLeft="5dip"
+		        	/>
+		
+		           
+		            
+		
+		        </RelativeLayout>
+		         <View
+		                android:layout_width="fill_parent"
+		                android:layout_height="0.2dp"
+		                android:visibility="visible"
+		                android:background="@android:color/darker_gray"
+		   		 />
+		    
+		        
+		         
+		        
+		        
+		    </LinearLayout>
+		  
+		<!-- Personal Info END -->
+			
+		
+		   
+		
+		</LinearLayout>
+		</ScrollView>
+</RelativeLayout>

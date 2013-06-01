@@ -11,6 +11,7 @@ public class Constants {
 	public static String followsUri = uMappinUrl+"followsInfo";
 	public static String followedUri = uMappinUrl+"followedInfo";
 	public static String userUri = uMappinUrl+"api/users"; 
+	public static String othersProfileUri = uMappinUrl+"users/";
 
 
 	//END URIS

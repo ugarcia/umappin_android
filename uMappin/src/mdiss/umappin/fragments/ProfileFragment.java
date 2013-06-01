@@ -23,7 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ProfileFragment extends Fragment implements OnClickListener{
+public class ProfileFragment extends HandleredFragment implements OnClickListener{
 	
 	
 	/**
@@ -64,7 +64,6 @@ public class ProfileFragment extends Fragment implements OnClickListener{
 	private ImageButton showFollows;
 	
 	private InputMethodManager keyboard;
-
 
 
 
@@ -171,7 +170,7 @@ public class ProfileFragment extends Fragment implements OnClickListener{
 		
 	}
 	public  Handler getMyhandler() {
-		return myHandler;
+		return this.myHandler;
 	}
 
 	@Override
