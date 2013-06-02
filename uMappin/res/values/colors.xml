@@ -152,6 +152,7 @@
     
     <color name="background">#fcf8dc</color>
     <color name="darkBackground">#463116</color>
+    <color name="loginButonPresBackground">#756550</color>
     <color name="titles">#463116</color>
 
 </resources>
