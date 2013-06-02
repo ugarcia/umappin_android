@@ -51,11 +51,11 @@ public class OthersProfileFragment extends HandleredFragment implements OnClickL
 		public void handleMessage(final Message msg){
 			switch (msg.what){
 			case Constants.profileFollows:
-				followsNumber.setText(profileUser.getFollows().size()+"");
+				followsNumber.setText(profileUser.getFollowing().size()+"");
 				
 				break;
 			case Constants.profileFollowed:
-				followedNumber.setText(profileUser.getFollowed().size()+"");
+				followedNumber.setText(profileUser.getFollowers().size()+"");
 				
 				break;
 				

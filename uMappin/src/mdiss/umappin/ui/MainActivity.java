@@ -13,6 +13,7 @@ import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
+import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
 import mdiss.umappin.utils.AlbumStorageDirFactory;

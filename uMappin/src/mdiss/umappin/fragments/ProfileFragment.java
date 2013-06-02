@@ -76,7 +76,7 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 				Log.i("some", msg+"");
 				break;
 			case Constants.profileFollows:
-				followsNumber.setText(profileUser.getFollows().size()+"");
+				followsNumber.setText(profileUser.getFollowing().size()+"");
 				showFollows.setEnabled(true);
 				new Thread(){ //don't want to stop the UI
 					public void run(){
@@ -85,7 +85,7 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 				}.start();
 				break;
 			case Constants.profileFollowed:
-				followedNumber.setText(profileUser.getFollowed().size()+"");
+				followedNumber.setText(profileUser.getFollowers().size()+"");
 				showFollowed.setEnabled(true);
 				new Thread(){ //don't want to stop the UI
 					public void run(){

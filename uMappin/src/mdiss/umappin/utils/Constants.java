@@ -12,7 +12,8 @@ public class Constants {
 	public static String followedUri = uMappinUrl+"followedInfo";
 	public static String userUri = uMappinUrl+"api/users"; 
 	public static String othersProfileUri = uMappinUrl+"users/";
-
+	public static String unfollowUri = uMappinUrl+"api/unfollow/";
+	public static String addfollowUri = uMappinUrl+"api/addFollows/";
 
 	//END URIS
 	public static String prefsName = "uMappinPrefs"; //Name of the SharedPreferences

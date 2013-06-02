@@ -5,6 +5,7 @@ package mdiss.umappin.fragments;
 import mdiss.umappin.R;
 
 import mdiss.umappin.entities.User;
+import mdiss.umappin.ui.adapter.FollowersAdapter;
 import mdiss.umappin.ui.adapter.FollowingAdapter;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class FollowsFragment extends ListFragment implements OnClickListener{
@@ -22,10 +24,10 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 	 * goes wrong. Then use setDiscussionHeaders. 
 	 */
 	private User profileUser;
-	private Boolean followsFollowed; //false follows True followed
+	private Boolean followsFollowed; //false followers True following
 
 	private ListView list;
-	private FollowingAdapter adapter;
+	private BaseAdapter adapter;
 
 
 
@@ -50,9 +52,10 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 		if(followsFollowed){
 			//Following Adapter have to change to followeds
 			//TODO
-			adapter=new FollowingAdapter(getActivity(), profileUser.getFollows());
+			adapter=new FollowingAdapter(getActivity(),profileUser);
+
 		}else{
-			adapter=new FollowingAdapter(getActivity(), profileUser.getFollowed());
+			adapter=new FollowersAdapter(getActivity(), profileUser);
 
 		}
 		

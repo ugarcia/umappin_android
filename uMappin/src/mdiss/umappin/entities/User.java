@@ -133,7 +133,7 @@ public class User {
 		
 		this.follows = getArrayListFromJsonArray(jFollows);
 	}
-	public ArrayList<User> getFollows(){
+	public ArrayList<User> getFollowing(){
 		return this.follows;
 	}
 	
@@ -141,7 +141,7 @@ public class User {
 		
 		this.followed = getArrayListFromJsonArray(jFollowed);
 	}
-	public ArrayList<User> getFollowed(){
+	public ArrayList<User> getFollowers(){
 		return this.followed;
 	}
 	
@@ -173,15 +173,35 @@ public class User {
 
 
 	public void getFollowsImages(Activity pActivity) {
-		getUsersListImages(pActivity, this.getFollows());
+		getUsersListImages(pActivity, this.getFollowing());
 		
 	}
 	
 	public void getFollowedImages(Activity pActivity){
-		getUsersListImages(pActivity, this.getFollowed());
+		getUsersListImages(pActivity, this.getFollowers());
 
 	}
 	
+	public Boolean isFollower(String id){//following you
+		
+		for (User u: this.getFollowers()){
+			if (u.getId().compareTo(id)==0){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean isFollowing(String id){// you are following 
+		for (User u: this.getFollowing()){
+			if (u.getId().compareTo(id)==0){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	public void getUsersListImages(Activity pActivity, ArrayList<User> users){
 		for (User follow : users){
 			String uri = follow.getPhotoUri();

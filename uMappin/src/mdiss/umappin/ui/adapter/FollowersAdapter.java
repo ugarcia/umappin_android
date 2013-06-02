@@ -3,8 +3,8 @@ package mdiss.umappin.ui.adapter;
 import java.util.ArrayList;
 
 import mdiss.umappin.R;
+import mdiss.umappin.asynctasks.profile.AddfollowAsyncTask;
 import mdiss.umappin.asynctasks.profile.OthersProfileAsyncTask;
-import mdiss.umappin.asynctasks.profile.UnfollowAsyncTask;
 import mdiss.umappin.entities.User;
 import android.app.Activity;
 import android.content.Context;
@@ -19,19 +19,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
  
-public class FollowingAdapter extends BaseAdapter implements OnClickListener{
+public class FollowersAdapter extends BaseAdapter implements OnClickListener{
  
     private Activity activity;
     private static LayoutInflater inflater=null;
     ArrayList<User> users;
-    ImageButton unfollowButton;
+    ImageButton followButton;
     TextView name;
-    User user;
+    User profileUser;
  
-    public FollowingAdapter(Activity a,User pUser){
+    public FollowersAdapter(Activity a, User pUser){
         activity = a;
-        users = pUser.getFollowing();
-        user = pUser;
+        users = pUser.getFollowers();
+        profileUser = pUser;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
  
@@ -50,7 +50,7 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.follows_row, null);
+            vi = inflater.inflate(R.layout.followers_row, null);
  
         User user = users.get(position);
         name = (TextView)vi.findViewById(R.id.follows_name); // name
@@ -58,9 +58,13 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.follows_image); // thumb image
         
         thumb_image.setImageBitmap(user.getProfilePicture());
-        unfollowButton = (ImageButton)vi.findViewById(R.id.unfollow_button);
-        unfollowButton.setTag(user); //Binding the user to the button
-        unfollowButton.setOnClickListener(this);
+        followButton = (ImageButton)vi.findViewById(R.id.follow_button);
+        followButton.setTag(user); //Binding the user to the button
+        followButton.setOnClickListener(this);
+        if (!profileUser.isFollowing(user.getId())){
+        	followButton.setVisibility(View.VISIBLE);
+        }
+        
         name.setText(user.getName());
         name.setTag(user);
  
@@ -73,12 +77,10 @@ public class FollowingAdapter extends BaseAdapter implements OnClickListener{
 	public void onClick(View v) {
 		User currentUser = (User)v.getTag();
 
-		if (v.getId() == unfollowButton.getId()){
-			new UnfollowAsyncTask(activity).execute(currentUser);
-			users.remove(currentUser);
-			notifyDataSetChanged();
+		if (v.getId() == followButton.getId()){
+			new AddfollowAsyncTask(activity).execute(currentUser);
+			v.setVisibility(View.INVISIBLE);
 			
-			//TODO
 			
 		}if (v.getId() == name.getId()){
 			new OthersProfileAsyncTask(activity).execute(currentUser);
