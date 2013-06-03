@@ -53,6 +53,11 @@ public class User {
 			if (!json.isNull("firstName")) this.setFirstName(json.getString("firstName"));
 			if (!json.isNull("lastName")) this.setLastName(json.getString("lastName"));
 			this.setEmail(json.getString("email"));
+			
+			this.followed = new ArrayList<User>();
+			this.follows = new ArrayList<User>();
+			
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 

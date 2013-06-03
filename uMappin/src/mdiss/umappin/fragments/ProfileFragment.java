@@ -64,7 +64,10 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 	private ImageButton showFollowed;
 	
 	private InputMethodManager keyboard;
-
+	
+	private Boolean pictureLoad = false;
+	private Boolean followsLoad = false;
+	private Boolean followedLoad = false;
 
 
 	private final Handler myHandler = new Handler(){
@@ -72,20 +75,23 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 			switch (msg.what){
 			case Constants.profilePicture:
 				profilePicture.setImageBitmap(profileUser.getProfilePicture());
-				Log.i("some", msg+"");
+				pictureLoad = true;
 				break;
 			case Constants.profileFollows:
 				followsNumber.setText(profileUser.getFollowing().size()+"");
 				showFollows.setEnabled(true);
+				followsLoad = true;
 				new Thread(){ //don't want to stop the UI
 					public void run(){
 						profileUser.getFollowsImages(getActivity());
 					}
 				}.start();
+				
 				break;
 			case Constants.profileFollowed:
 				followedNumber.setText(profileUser.getFollowers().size()+"");
 				showFollowed.setEnabled(true);
+				followedLoad = true;
 				new Thread(){ //don't want to stop the UI
 					public void run(){
 						profileUser.getFollowedImages(getActivity());
@@ -152,6 +158,15 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 		lastName.setText(profileUser.getLastName());
 		email.setText(profileUser.getEmail());
 		
+		if(followsLoad)
+			followsNumber.setText(profileUser.getFollowing().size()+"");
+		if(followedLoad)
+			followedNumber.setText(profileUser.getFollowers().size()+"");
+		
+		if(pictureLoad){
+			profilePicture.setImageBitmap(profileUser.getProfilePicture());
+		}
+		
 		//Set buttons listeners		
 		editFirstNameButton.setOnClickListener(this );
 		editFirstNameCancelButton.setOnClickListener(this);
@@ -168,10 +183,12 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 		saveProfileButton.setOnClickListener(this);
 		
 		showFollows.setOnClickListener(this);
-		showFollows.setEnabled(false); //not clickable before follows loaded
+		if(!followedLoad)
+			showFollows.setEnabled(false); //not clickable before follows loaded
 		
 		showFollowed.setOnClickListener(this);
-		showFollowed.setEnabled(false); //not clickable before followed loaded
+		if(!followedLoad)
+			showFollowed.setEnabled(false); //not clickable before followed loaded
 
 
 
