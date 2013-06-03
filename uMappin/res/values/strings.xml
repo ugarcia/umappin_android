@@ -25,5 +25,7 @@
     <string name="name">Name</string>
     <string name="distance">Distance</string>
     <string name="difficulty">Difficulty</string>
+    <string name="title_exit_dialog">Exit</string>
+    <string name="message_exit_dialog">Are you sure you want to exit the app?</string>
 
 </resources>

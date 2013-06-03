@@ -60,7 +60,7 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 			ProfileFragment fragment = new ProfileFragment();
 			fragment.setProfileData(currentUser);
 			
-			activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+			activity.getFragmentManager().beginTransaction().addToBackStack("profile").replace(R.id.content_frame, fragment).commit();
 			activity.findViewById(R.id.loading).setVisibility(View.GONE);
 			activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 			
@@ -69,10 +69,6 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 			new GetFollowedAsyncTaskProfile(currentUser, activity, fragment).execute();
 		
 		}
-
 	}
-
-
-
 
 }

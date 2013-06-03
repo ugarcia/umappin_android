@@ -47,12 +47,11 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 		super.onPostExecute(result);
 		DiscussionHeadersFragment fragment = new DiscussionHeadersFragment();
 		fragment.setDiscussionHeaders(Discussion.getListFromJSONArray(result));
-		activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+		activity.getFragmentManager().beginTransaction().addToBackStack("toHeaders").replace(R.id.content_frame, fragment).commit();
 		activity.findViewById(R.id.loading).setVisibility(View.GONE);
 		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 		
 		HttpConnections.goToLoginIfneed();
-		
 
 	}
 }

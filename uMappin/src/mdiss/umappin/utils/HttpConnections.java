@@ -161,6 +161,7 @@ public class HttpConnections {
 		httppost.addHeader("token",Login.getToken());
 		Log.i("HTTP", "header = token: "+Login.getToken());
 		Log.i("HTTP", "POST URL: " + url);
+		Log.i("HTTP",body.toString());
 		String responseBody = null;
 		try {
 			StringEntity se = new StringEntity( body.toString());

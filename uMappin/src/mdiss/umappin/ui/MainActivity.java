@@ -13,7 +13,6 @@ import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
-import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
 import mdiss.umappin.utils.AlbumStorageDirFactory;
@@ -166,7 +165,7 @@ public class MainActivity extends MapActivity {
 			case 3:// Map
 				getActionBar().setTitle("OSMap");
 				MapFragment fragment = new MapFragment();
-				getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment).commit();
 				break;
 			case 4:
 				getActionBar().setTitle("My routes");
@@ -178,7 +177,7 @@ public class MainActivity extends MapActivity {
 			default:// Take a photo
 				getActionBar().setTitle("Take a photo");
 				PictureFragment fragmentPicture = new PictureFragment();
-				getFragmentManager().beginTransaction().replace(R.id.content_frame, fragmentPicture).commit();
+				getFragmentManager().beginTransaction().addToBackStack("photo").replace(R.id.content_frame, fragmentPicture).commit();
 				dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
 			}
 			mDrawerLayout.closeDrawer(mDrawerList);
@@ -371,4 +370,34 @@ public class MainActivity extends MapActivity {
 		} // ACTION_TAKE_PHOTO_S
 		} // switch
 	}
+	
+	@Override
+	public void onBackPressed() {
+		if (getFragmentManager().getBackStackEntryCount()==0) {
+			AlertDialog dialog = new AlertDialog.Builder(this).create();
+			dialog.setTitle(getString(R.string.title_exit_dialog));
+			dialog.setMessage(getString(R.string.message_exit_dialog));
+			dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.button_positive),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int arg1) {
+							dialog.dismiss();
+							MainActivity.this.finish();
+						}
+					});
+			dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.button_negative),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int arg1) {
+							dialog.dismiss();
+						}
+					});
+			dialog.show();
+		} else {
+			super.onBackPressed();
+		}
+	}
+	
 }

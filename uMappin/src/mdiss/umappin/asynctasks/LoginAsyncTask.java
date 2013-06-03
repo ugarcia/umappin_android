@@ -73,6 +73,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, Boolean> {
 	            Intent intent = new Intent(activity, MainActivity.class);
 				//activity.showProgress(false);
 				activity.startActivity(intent);
+				activity.finish();
 			}
 		} else {// Error while login
 			//activity.showProgress(false);

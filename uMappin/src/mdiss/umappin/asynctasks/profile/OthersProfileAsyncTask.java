@@ -60,7 +60,7 @@ public class OthersProfileAsyncTask extends AsyncTask<User, Void, JSONObject> {
 			OthersProfileFragment fragment = new OthersProfileFragment();
 			fragment.setProfileData(profUser);
 			
-			activity.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+			activity.getFragmentManager().beginTransaction().addToBackStack("otherProfile").replace(R.id.content_frame, fragment).commit();
 			activity.findViewById(R.id.loading).setVisibility(View.GONE);
 			activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 			

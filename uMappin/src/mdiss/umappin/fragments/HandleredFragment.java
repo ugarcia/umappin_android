@@ -3,7 +3,6 @@ package mdiss.umappin.fragments;
 
 import android.app.Fragment;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View.OnClickListener;
 
 public abstract class HandleredFragment extends Fragment implements OnClickListener{
