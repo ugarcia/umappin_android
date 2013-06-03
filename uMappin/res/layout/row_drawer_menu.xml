@@ -1,11 +1,45 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lateral_menu_row"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="@color/LightBlue"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    android:background="@drawable/menu_buton_background">
+    	  <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:visibility="visible"
+            android:background="@color/darkBackground"
+	 />
+   	<LinearLayout 
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="wrap_content"
+   	    android:paddingTop="5dip"
+   	    android:paddingBottom="5dip"
+   	    android:paddingLeft="10dip">
+
+   	    <ImageView
+   	        android:id="@+id/lateral_menu_item_pick"
+   	        android:layout_width="50dip"
+   	        android:layout_height="50dip"
+   	        android:src="@drawable/ic_launcher" />
+
+		<TextView 
+		    android:id="@+id/lateral_menu_item_text"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+		    android:gravity="center_vertical"
+		    android:paddingLeft="16dp"
+		    android:paddingRight="16dp"
+		    android:textColor="@drawable/menu_button_text"
+		    
+		    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+		 />
+	</LinearLayout>
+	  <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:visibility="visible"
+            android:background="@color/darkBackground"
+	 />
+</LinearLayout>

@@ -13,8 +13,10 @@ import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
+import mdiss.umappin.entities.LateralMenuItem;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
+import mdiss.umappin.ui.adapter.LateralMenuAdapter;
 import mdiss.umappin.utils.AlbumStorageDirFactory;
 import mdiss.umappin.utils.BaseAlbumDirFactory;
 import mdiss.umappin.utils.Constants;
@@ -62,8 +64,18 @@ public class MainActivity extends MapActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Routes", "Games", "Take a photo" };
+	//private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Routes", "Games", "Take a photo" };
 
+	private LateralMenuItem[] menuOptions= new LateralMenuItem[]{
+			new LateralMenuItem("Timeline",R.drawable.ic_menu_friendslist),
+			new LateralMenuItem("Profile",R.drawable.ic_contact_picture),
+			new LateralMenuItem("Messages",R.drawable.sym_action_email),
+			new LateralMenuItem("Map",R.drawable.ic_menu_mapmode),
+			new LateralMenuItem("Routes",R.drawable.ic_menu_mylocation),
+			new LateralMenuItem("Games",R.drawable.ic_media_video_poster),
+			new LateralMenuItem("Take a photo",R.drawable.ic_menu_camera)
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,7 +85,9 @@ public class MainActivity extends MapActivity {
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.row_drawer_menu, menuOptions));
+		//mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.row_drawer_menu, menuOptions));
+		mDrawerList.setAdapter(new LateralMenuAdapter(this, R.layout.row_drawer_menu, menuOptions));
+
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
