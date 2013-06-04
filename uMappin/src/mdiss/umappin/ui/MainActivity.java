@@ -44,7 +44,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends MapActivity {
@@ -67,6 +69,8 @@ public class MainActivity extends MapActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private FrameLayout contentFrame;
+	private LinearLayout loading;
 	//private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Routes", "Games", "Take a photo" };
 
 	private LateralMenuItem[] menuOptions= new LateralMenuItem[]{
@@ -85,6 +89,9 @@ public class MainActivity extends MapActivity {
 		setTitle("Timeline");
 		setContentView(R.layout.activity_main);
 
+		contentFrame = (FrameLayout) findViewById(R.id.content_frame);
+		loading = (LinearLayout) findViewById(R.id.loading);
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -191,6 +198,10 @@ public class MainActivity extends MapActivity {
 				break;
 			case 5:// Games
 				getActionBar().setTitle("Play!");
+				loading.setVisibility(loading.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
+				contentFrame.setVisibility(contentFrame.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
+				Log.i("visibility","loading "+loading.getVisibility());
+				Log.i("visibility","contentFrame "+contentFrame.getVisibility());
 				break;
 			default:// Take a photo
 				setTitle("Take a photo");
