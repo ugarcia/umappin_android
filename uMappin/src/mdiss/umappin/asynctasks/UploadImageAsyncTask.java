@@ -1,11 +1,18 @@
 package mdiss.umappin.asynctasks;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mdiss.umappin.R;
+import mdiss.umappin.utils.Constants;
+import mdiss.umappin.utils.HttpConnections;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-public class UploadImageAsyncTask extends AsyncTask<Void, Void, Boolean> {
+public class UploadImageAsyncTask extends AsyncTask<JSONObject, Void, String> {
 
 	private Activity activity;
 
@@ -21,24 +28,26 @@ public class UploadImageAsyncTask extends AsyncTask<Void, Void, Boolean> {
 	}
 
 	@Override
-	protected Boolean doInBackground(Void... arg0) {
-		/*Make post request {
-		 *rest/photos
-	    "date_created":123456,
-	    "title":"Abc avenue",
-		"description":"my favourite road",
-		"latitude":1224, 
-		"longitude":12333
+	protected String doInBackground(JSONObject... arg0) {
+		JSONObject json = arg0[0];
+		try {
+			Log.i(Constants.logUploadPhotos,json.getString("title"));
+			Log.i(Constants.logUploadPhotos,json.getString("description"));
+			Log.i(Constants.logUploadPhotos,String.valueOf(json.getDouble("latitude")));
+			Log.i(Constants.logUploadPhotos,String.valueOf(json.getDouble("longitude")));
+			Log.i(Constants.logUploadPhotos,String.valueOf(json.getInt("date_created")));
+			Log.i(Constants.logUploadPhotos,json.getString("content"));
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		
-		with returned id make the content post call
-		*/
-		return null;
+		return HttpConnections.makeJsonPostRequest(Constants.uMappinUrl + "photos", arg0[0], null, activity);
 	}
 
 	@Override
-	protected void onPostExecute(Boolean result) {
+	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
+		Toast.makeText(activity, activity.getString(R.string.sended_photo_toast), Toast.LENGTH_LONG).show();
 		activity.findViewById(R.id.loading).setVisibility(View.GONE);
 		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
 	}

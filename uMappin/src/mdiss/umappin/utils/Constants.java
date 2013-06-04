@@ -22,6 +22,7 @@ public class Constants {
 	public static String logPrefs = "uMappinPrefs";
 	public static String logGeoMethods = "GeoMethods";
 	public static String logMap = "Map";
+	public static String logUploadPhotos = "uploadPhotos";
 	public static String picturePointName= "The picture is here";
 	public static String picturePointDesc= "Current picture";
 	public static String logMessages = "logMessages";

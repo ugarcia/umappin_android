@@ -5,6 +5,7 @@ package mdiss.umappin.fragments;
 import mdiss.umappin.R;
 
 import mdiss.umappin.entities.User;
+import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.Constants;
 import android.app.Activity;
 import android.os.Bundle;
@@ -292,12 +293,12 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 			profileUser.save(getActivity());
 			saveProfileButton.setVisibility(View.GONE);
 		}else if (v.getId() == this.showFollows.getId()){
-			getActivity().getActionBar().setTitle(profileUser.getName()+"'s Follows");
+			((MainActivity) getActivity()).setTitle(profileUser.getName()+"'s Follows");
 			FollowsFragment fragment = new FollowsFragment();
 			fragment.setProfileData(profileUser, true);
 			getFragmentManager().beginTransaction().addToBackStack("follows").replace(R.id.content_frame, fragment).commit();
 		}else if (v.getId() == this.showFollowed.getId()){
-			getActivity().getActionBar().setTitle(profileUser.getName()+"'s Followers");
+			((MainActivity) getActivity()).setTitle(profileUser.getName()+"'s Followers");
 			FollowsFragment fragment = new FollowsFragment();
 			fragment.setProfileData(profileUser, false);
 			getFragmentManager().beginTransaction().addToBackStack("following").replace(R.id.content_frame, fragment).commit();

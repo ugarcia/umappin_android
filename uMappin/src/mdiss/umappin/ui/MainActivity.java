@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Stack;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
@@ -46,6 +47,8 @@ import android.widget.ListView;
 
 public class MainActivity extends MapActivity {
 
+	private Stack<String> titles = new Stack<String>();
+	
 	public static final int ACTION_TAKE_PHOTO_B = 1;
 	private static final int ACTION_TAKE_PHOTO_S = 2;
 
@@ -67,6 +70,7 @@ public class MainActivity extends MapActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("Timeline");
 		setContentView(R.layout.activity_main);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,27 +159,27 @@ public class MainActivity extends MapActivity {
 				getActionBar().setTitle("Timeline");
 				break;
 			case 1://Profile
-				getActionBar().setTitle("Profile");
+				setTitle("Profile");
 				new ProfileAsyncTask(MainActivity.this).execute();
 				break;
 			case 2:// Messages
-				getActionBar().setTitle("Messages");
+				setTitle("Messages");
 				new DiscussionHeadersAsyncTask(MainActivity.this).execute();
 				break;
 			case 3:// Map
-				getActionBar().setTitle("OSMap");
+				setTitle("OpenStreetMap");
 				MapFragment fragment = new MapFragment();
 				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment).commit();
 				break;
 			case 4:
-				getActionBar().setTitle("My routes");
+				setTitle("My routes");
 				new RoutesAsyncTask(MainActivity.this).execute("");
 				break;
 			case 5:// Games
 				getActionBar().setTitle("Play!");
 				break;
 			default:// Take a photo
-				getActionBar().setTitle("Take a photo");
+				setTitle("Take a photo");
 				PictureFragment fragmentPicture = new PictureFragment();
 				getFragmentManager().beginTransaction().addToBackStack("photo").replace(R.id.content_frame, fragmentPicture).commit();
 				dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
@@ -397,7 +401,13 @@ public class MainActivity extends MapActivity {
 			dialog.show();
 		} else {
 			super.onBackPressed();
+			titles.pop();
+			getActionBar().setTitle(titles.peek());
 		}
 	}
 	
+	public void setTitle(String title) {
+		getActionBar().setTitle(title);
+		titles.push(title);
+	}
 }

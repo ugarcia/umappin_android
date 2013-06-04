@@ -8,6 +8,7 @@ import mdiss.umappin.adapters.DiscussionMessagesAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
 import mdiss.umappin.asynctasks.ReplyMessagAsyncTask;
 import mdiss.umappin.entities.Discussion;
+import mdiss.umappin.ui.MainActivity;
 
 import android.app.ListFragment;
 import android.graphics.Point;
@@ -76,13 +77,13 @@ public class DiscussionMessagesFragment extends ListFragment{
 				json.put("message",text);
 				new ReplyMessagAsyncTask().execute(json);
 				getFragmentManager().popBackStack();
-				new DiscussionMessagesAsyncTask(getActivity()).execute(discussion.getId());
+				new DiscussionMessagesAsyncTask((MainActivity) getActivity()).execute(discussion.getId());
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 				//TODO core---- instead of requesting all info again create inside the app the new message
 				getFragmentManager().popBackStack();
-				new DiscussionMessagesAsyncTask(getActivity()).execute(discussion.getId());
+				new DiscussionMessagesAsyncTask((MainActivity) getActivity()).execute(discussion.getId());
 			}
 		});
 		return view;

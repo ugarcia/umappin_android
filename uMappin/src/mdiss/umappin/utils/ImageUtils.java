@@ -1,5 +1,6 @@
 package mdiss.umappin.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -14,9 +15,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.util.LruCache;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
+import android.widget.ImageView;
 
 public class ImageUtils {
 
@@ -33,6 +37,21 @@ public class ImageUtils {
 			Log.i(Constants.logImageUtils,"Get bitmap from cache");
 		}
 		return bm;
+	}
+	
+	public static String getBase64(ImageView iv) {
+		Bitmap bm = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+	}
+	
+	public static String getBase64(Bitmap bm) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
 	}
 	
 	static public Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {

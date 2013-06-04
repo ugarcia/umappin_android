@@ -7,6 +7,7 @@ import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionHeaderAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
 import mdiss.umappin.entities.Discussion;
+import mdiss.umappin.ui.MainActivity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,7 +54,7 @@ public class DiscussionHeadersFragment extends ListFragment{
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				new DiscussionMessagesAsyncTask(getActivity()).execute(discussionHeaders.get(position).getId());
+				new DiscussionMessagesAsyncTask((MainActivity) getActivity()).execute(discussionHeaders.get(position).getId());
 			}
 		});
 	}
