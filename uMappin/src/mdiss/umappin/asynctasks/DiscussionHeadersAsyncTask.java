@@ -50,8 +50,6 @@ public class DiscussionHeadersAsyncTask extends AsyncTask<Void, Void, JSONArray>
 		activity.getFragmentManager().beginTransaction().addToBackStack("toHeaders").replace(R.id.content_frame, fragment).commit();
 		activity.findViewById(R.id.loading).setVisibility(View.GONE);
 		activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
-		
 		HttpConnections.goToLoginIfneed();
-
 	}
 }

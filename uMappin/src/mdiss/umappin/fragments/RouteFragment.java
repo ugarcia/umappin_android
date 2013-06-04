@@ -47,16 +47,6 @@ public class RouteFragment extends ListFragment {
 
 			RouteAdapter adapter = new RouteAdapter(getActivity(), routes);
 			setListAdapter(adapter);
-			getListView().setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					MapFragment fragment = new MapFragment();
-					fragment.showRoute(routes.get(position - 1).getRoutePoints());
-					getActivity().getFragmentManager().beginTransaction().addToBackStack("map")
-							.replace(R.id.content_frame, fragment).commit();
-				}
-			});
 			firstTime=false;
 		}
 	}
@@ -64,6 +54,17 @@ public class RouteFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		Log.i("LifeCycle", "onResume");
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				MapFragment fragment = new MapFragment();
+				((MainActivity) getActivity()).setTitle(routes.get(position-1).getName());
+				fragment.setRoute(routes.get(position-1).getRoutePoints());
+				getActivity().getFragmentManager().beginTransaction().addToBackStack("map")
+						.replace(R.id.content_frame, fragment).commit();
+			}
+		});
 		super.onResume();
 	}
 
