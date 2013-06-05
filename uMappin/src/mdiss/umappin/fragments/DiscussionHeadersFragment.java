@@ -3,15 +3,11 @@ package mdiss.umappin.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mapsforge.core.GeoPoint;
-
 import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionHeaderAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
-import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.entities.Discussion;
 import mdiss.umappin.ui.MainActivity;
-import mdiss.umappin.utils.GeoMethods;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

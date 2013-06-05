@@ -56,6 +56,9 @@ public class MapFragment extends Fragment {
 	}
 
 	public void showRoute() {
+		if (route == null) {
+			route = new ArrayList<GeoPoint>();
+		}
 		if (route.isEmpty()) {
 			route = new ArrayList<GeoPoint>();
 			route.add(new GeoPoint(43.25696, -2.923434));
@@ -110,7 +113,7 @@ public class MapFragment extends Fragment {
 					minLon = (int) (gp.getLongitude() * 1E6);
 			}
 
-			BoundingBox bb = new BoundingBox(minLat,minLon,maxLat,maxLon);
+			BoundingBox bb = new BoundingBox(minLat, minLon, maxLat, maxLon);
 			fitToBoundingBox(bb, 18);
 		}
 	}
@@ -122,41 +125,42 @@ public class MapFragment extends Fragment {
 	public void setRoute(List<GeoPoint> route) {
 		this.route = route;
 	}
-	
+
 	public synchronized void fitToBoundingBox(final BoundingBox pBoundingBox, final int pMaximumZoom) {
-        int width = mapView.getWidth();
-        int height = mapView.getHeight();
-        if (width <= 0 || height <= 0) {
-        	mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-                @SuppressWarnings("deprecation")
+		int width = mapView.getWidth();
+		int height = mapView.getHeight();
+		if (width <= 0 || height <= 0) {
+			mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+				@SuppressWarnings("deprecation")
 				@Override
-                public void onGlobalLayout() {
-                    mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    fitToBoundingBox(pBoundingBox, pMaximumZoom);
-                }
-            });
-        } else {
-            Projection projection1 = mapView.getProjection();
-            GeoPoint pointSouthWest = new GeoPoint(pBoundingBox.getMinLatitude(), pBoundingBox.getMinLongitude());
-            GeoPoint pointNorthEast = new GeoPoint(pBoundingBox.getMaxLatitude(), pBoundingBox.getMaxLongitude());
-            Point pointSW = new Point();
-            Point pointNE = new Point();
-            byte maxLvl = (byte) Math.min(pMaximumZoom, mapView.getMapZoomControls().getZoomLevelMax());
-            byte zoomLevel = 0;
-            while (zoomLevel < maxLvl) {
-                byte tmpZoomLevel = (byte) (zoomLevel + 1);
-                projection1.toPoint(pointSouthWest, pointSW, tmpZoomLevel);
-                projection1.toPoint(pointNorthEast, pointNE, tmpZoomLevel);
-                if (pointNE.x - pointSW.x > width) {
-                    break;
-                }
-                if (pointSW.y - pointNE.y > height) {
-                    break;
-                }
-                zoomLevel = tmpZoomLevel;
-            }
-            mapView.getMapPosition().setMapCenterAndZoomLevel(new MapPosition(pBoundingBox.getCenterPoint(), zoomLevel));
-        }
-    }
+				public void onGlobalLayout() {
+					mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+					fitToBoundingBox(pBoundingBox, pMaximumZoom);
+				}
+			});
+		} else {
+			Projection projection1 = mapView.getProjection();
+			GeoPoint pointSouthWest = new GeoPoint(pBoundingBox.getMinLatitude(), pBoundingBox.getMinLongitude());
+			GeoPoint pointNorthEast = new GeoPoint(pBoundingBox.getMaxLatitude(), pBoundingBox.getMaxLongitude());
+			Point pointSW = new Point();
+			Point pointNE = new Point();
+			byte maxLvl = (byte) Math.min(pMaximumZoom, mapView.getMapZoomControls().getZoomLevelMax());
+			byte zoomLevel = 0;
+			while (zoomLevel < maxLvl) {
+				byte tmpZoomLevel = (byte) (zoomLevel + 1);
+				projection1.toPoint(pointSouthWest, pointSW, tmpZoomLevel);
+				projection1.toPoint(pointNorthEast, pointNE, tmpZoomLevel);
+				if (pointNE.x - pointSW.x > width) {
+					break;
+				}
+				if (pointSW.y - pointNE.y > height) {
+					break;
+				}
+				zoomLevel = tmpZoomLevel;
+			}
+			mapView.getMapPosition()
+					.setMapCenterAndZoomLevel(new MapPosition(pBoundingBox.getCenterPoint(), zoomLevel));
+		}
+	}
 
 }
