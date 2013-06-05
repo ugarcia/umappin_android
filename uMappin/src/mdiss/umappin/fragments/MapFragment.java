@@ -7,12 +7,15 @@ import java.util.List;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownloader;
+import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
+import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.core.BoundingBox;
 import org.mapsforge.core.GeoPoint;
 import org.mapsforge.core.MapPosition;
 
+import mdiss.umappin.R;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.GeoMethods;
 import android.app.Fragment;
@@ -20,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,6 +119,17 @@ public class MapFragment extends Fragment {
 
 			BoundingBox bb = new BoundingBox(minLat, minLon, maxLat, maxLon);
 			fitToBoundingBox(bb, 18);
+			
+			Drawable defaultMarker = getResources().getDrawable(R.drawable.marker1);
+			Drawable defaultMarker2 = getResources().getDrawable(R.drawable.marker2);
+			ArrayItemizedOverlay itemizedOverlay1 = new ArrayItemizedOverlay(defaultMarker);
+			ArrayItemizedOverlay itemizedOverlay2 = new ArrayItemizedOverlay(defaultMarker2);
+			OverlayItem item1 = new OverlayItem(route.get(0), "Begin", "Begining of the route");
+			OverlayItem item2 = new OverlayItem(route.get(route.size()-1), "End", "End of route");
+			itemizedOverlay1.addItem(item1);
+			itemizedOverlay2.addItem(item2);
+			mapView.getOverlays().add(itemizedOverlay1);
+			mapView.getOverlays().add(itemizedOverlay2);
 		}
 	}
 
