@@ -1,23 +1,31 @@
 package mdiss.umappin.fragments;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.mapsforge.android.maps.MapView;
+import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownloader;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 import org.mapsforge.android.maps.overlay.OverlayWay;
+import org.mapsforge.core.BoundingBox;
 import org.mapsforge.core.GeoPoint;
+import org.mapsforge.core.MapPosition;
 
-import mdiss.umappin.R.color;
+import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.GeoMethods;
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Paint.Cap;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 public class MapFragment extends Fragment {
 
@@ -31,8 +39,6 @@ public class MapFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		initializeMap();
-		// Drawable defaultMarker =
-		// getResources().getDrawable(R.drawable.marker);
 		if (!getActivity().getActionBar().getTitle().equals("OpenStreetMap")) {
 			showRoute();
 		}
@@ -50,34 +56,62 @@ public class MapFragment extends Fragment {
 	}
 
 	public void showRoute() {
-		route = new ArrayList<GeoPoint>();
-		route.add(new GeoPoint(43.25696,-2.923434));
-		route.add(new GeoPoint(43.25696,-2.923440));
-		route.add(new GeoPoint(43.25696,-2.923444));
+		if (route.isEmpty()) {
+			route = new ArrayList<GeoPoint>();
+			route.add(new GeoPoint(43.25696, -2.923434));
+			route.add(new GeoPoint(43.21696, -2.925440));
+			route.add(new GeoPoint(43.23696, -2.927444));
+		}
+		double distance = GeoMethods.getDistance(route);
+		Log.i(Constants.logGeoMethods, distance + " km");
 		if (!route.isEmpty()) {
 			mapView.setCenter(route.get(0));
-			Paint wayDefaultPaintFill = new Paint();
-			wayDefaultPaintFill.setColor(color.Chocolate);
-			wayDefaultPaintFill.setStyle(Paint.Style.FILL);
-			wayDefaultPaintFill.setAlpha(32);
-			wayDefaultPaintFill.setStrokeWidth(5);
-			wayDefaultPaintFill.setStrokeCap(Cap.ROUND);
-			wayDefaultPaintFill.setStrokeJoin(Paint.Join.BEVEL);
+			Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
+			wayDefaultPaintFill.setStyle(Paint.Style.STROKE);
+			wayDefaultPaintFill.setColor(Color.BLUE);
+			wayDefaultPaintFill.setAlpha(160);
+			wayDefaultPaintFill.setStrokeWidth(7);
+			wayDefaultPaintFill.setStrokeJoin(Paint.Join.ROUND);
+			wayDefaultPaintFill.setPathEffect(new DashPathEffect(new float[] { 20, 20 }, 0));
 
-			Paint wayDefaultPaintOutline = new Paint();
-			wayDefaultPaintOutline.setColor(color.Red);
-			wayDefaultPaintOutline.setStyle(Paint.Style.FILL);
-			wayDefaultPaintOutline.setAlpha(64);
-			wayDefaultPaintOutline.setStrokeWidth(5);
-			wayDefaultPaintOutline.setStrokeCap(Cap.ROUND);
-			wayDefaultPaintOutline.setStrokeJoin(Paint.Join.BEVEL);
-			
+			Paint wayDefaultPaintOutline = new Paint(Paint.ANTI_ALIAS_FLAG);
+			wayDefaultPaintOutline.setStyle(Paint.Style.STROKE);
+			wayDefaultPaintOutline.setColor(Color.BLUE);
+			wayDefaultPaintOutline.setAlpha(128);
+			wayDefaultPaintOutline.setStrokeWidth(7);
+			wayDefaultPaintOutline.setStrokeJoin(Paint.Join.ROUND);
+
+			Paint wayPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+			wayPaint.setStyle(Paint.Style.FILL);
+			wayPaint.setColor(Color.YELLOW);
+			wayPaint.setAlpha(192);
+
 			ArrayWayOverlay wayOverlay = new ArrayWayOverlay(wayDefaultPaintFill, wayDefaultPaintOutline);
 			GeoPoint[] points = route.toArray(new GeoPoint[0]);
-			
-			OverlayWay way = new OverlayWay(new GeoPoint[][] { points }, wayDefaultPaintOutline, null);
-			wayOverlay.addWay(way);
+			OverlayWay way1 = new OverlayWay(new GeoPoint[][] { points });
+			wayOverlay.addWay(way1);
 			mapView.getOverlays().add(wayOverlay);
+
+			int maxLat, minLat, maxLon, minLon;
+			maxLat = Integer.MIN_VALUE;
+			minLat = Integer.MAX_VALUE;
+			maxLon = Integer.MIN_VALUE;
+			minLon = Integer.MAX_VALUE;
+			Iterator<GeoPoint> iter = route.iterator();
+			while (iter.hasNext()) {
+				GeoPoint gp = iter.next();
+				if ((gp.getLatitude() * 1E6) > maxLat)
+					maxLat = (int) (gp.getLatitude() * 1E6);
+				if ((gp.getLatitude() * 1E6) < minLat)
+					minLat = (int) (gp.getLatitude() * 1E6);
+				if ((gp.getLongitude() * 1E6) > maxLon)
+					maxLon = (int) (gp.getLongitude() * 1E6);
+				if ((gp.getLongitude() * 1E6) < minLon)
+					minLon = (int) (gp.getLongitude() * 1E6);
+			}
+
+			BoundingBox bb = new BoundingBox(minLat,minLon,maxLat,maxLon);
+			fitToBoundingBox(bb, 18);
 		}
 	}
 
@@ -89,4 +123,40 @@ public class MapFragment extends Fragment {
 		this.route = route;
 	}
 	
+	public synchronized void fitToBoundingBox(final BoundingBox pBoundingBox, final int pMaximumZoom) {
+        int width = mapView.getWidth();
+        int height = mapView.getHeight();
+        if (width <= 0 || height <= 0) {
+        	mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+				@Override
+                public void onGlobalLayout() {
+                    mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    fitToBoundingBox(pBoundingBox, pMaximumZoom);
+                }
+            });
+        } else {
+            Projection projection1 = mapView.getProjection();
+            GeoPoint pointSouthWest = new GeoPoint(pBoundingBox.getMinLatitude(), pBoundingBox.getMinLongitude());
+            GeoPoint pointNorthEast = new GeoPoint(pBoundingBox.getMaxLatitude(), pBoundingBox.getMaxLongitude());
+            Point pointSW = new Point();
+            Point pointNE = new Point();
+            byte maxLvl = (byte) Math.min(pMaximumZoom, mapView.getMapZoomControls().getZoomLevelMax());
+            byte zoomLevel = 0;
+            while (zoomLevel < maxLvl) {
+                byte tmpZoomLevel = (byte) (zoomLevel + 1);
+                projection1.toPoint(pointSouthWest, pointSW, tmpZoomLevel);
+                projection1.toPoint(pointNorthEast, pointNE, tmpZoomLevel);
+                if (pointNE.x - pointSW.x > width) {
+                    break;
+                }
+                if (pointSW.y - pointNE.y > height) {
+                    break;
+                }
+                zoomLevel = tmpZoomLevel;
+            }
+            mapView.getMapPosition().setMapCenterAndZoomLevel(new MapPosition(pBoundingBox.getCenterPoint(), zoomLevel));
+        }
+    }
+
 }

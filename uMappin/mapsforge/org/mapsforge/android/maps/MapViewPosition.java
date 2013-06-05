@@ -108,7 +108,7 @@ public class MapViewPosition {
 		this.longitude = MercatorProjection.limitLongitude(geoPoint.getLongitude());
 	}
 
-	synchronized void setMapCenterAndZoomLevel(MapPosition mapPosition) {
+	public synchronized void setMapCenterAndZoomLevel(MapPosition mapPosition) {
 		GeoPoint geoPoint = mapPosition.geoPoint;
 		this.latitude = MercatorProjection.limitLatitude(geoPoint.getLatitude());
 		this.longitude = MercatorProjection.limitLongitude(geoPoint.getLongitude());
