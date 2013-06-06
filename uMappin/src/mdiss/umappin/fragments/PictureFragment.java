@@ -1,6 +1,5 @@
 package mdiss.umappin.fragments;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -19,11 +18,8 @@ import mdiss.umappin.utils.GeoMethods;
 import mdiss.umappin.utils.ImageUtils;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;

@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Stack;
 
 import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.mapgenerator.tiledownloader.MapnikTileDownloader;
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
@@ -27,6 +24,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,21 +36,17 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends MapActivity {
 
-	private Stack<String> titles = new Stack<String>();
-	
 	public static final int ACTION_TAKE_PHOTO_B = 1;
 	private static final int ACTION_TAKE_PHOTO_S = 2;
 
@@ -69,34 +63,28 @@ public class MainActivity extends MapActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private FrameLayout contentFrame;
-	private LinearLayout loading;
-	//private String[] menuOptions = { "Timeline", "Profile", "Messages", "Map", "Routes", "Games", "Take a photo" };
+	// private String[] menuOptions = { "Timeline", "Profile", "Messages",
+	// "Map", "Routes", "Games", "Take a photo" };
 
-	private LateralMenuItem[] menuOptions= new LateralMenuItem[]{
-			new LateralMenuItem("Timeline",R.drawable.ic_menu_friendslist),
-			new LateralMenuItem("Profile",R.drawable.ic_contact_picture),
-			new LateralMenuItem("Messages",R.drawable.sym_action_email),
-			new LateralMenuItem("Map",R.drawable.ic_menu_mapmode),
-			new LateralMenuItem("Routes",R.drawable.ic_menu_mylocation),
-			new LateralMenuItem("Games",R.drawable.ic_media_video_poster),
-			new LateralMenuItem("Take a photo",R.drawable.ic_menu_camera)
-	};
-	
+	private LateralMenuItem[] menuOptions = new LateralMenuItem[] {
+			new LateralMenuItem("Timeline", R.drawable.ic_menu_friendslist),
+			new LateralMenuItem("Profile", R.drawable.ic_contact_picture),
+			new LateralMenuItem("Messages", R.drawable.sym_action_email),
+			new LateralMenuItem("Map", R.drawable.ic_menu_mapmode),
+			new LateralMenuItem("Routes", R.drawable.ic_menu_mylocation),
+			new LateralMenuItem("Take a photo", R.drawable.ic_menu_camera) };
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("Timeline");
 		setContentView(R.layout.activity_main);
 
-		contentFrame = (FrameLayout) findViewById(R.id.content_frame);
-		loading = (LinearLayout) findViewById(R.id.loading);
-		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-		//mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.row_drawer_menu, menuOptions));
+		// mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		// R.layout.row_drawer_menu, menuOptions));
 		mDrawerList.setAdapter(new LateralMenuAdapter(this, R.layout.row_drawer_menu, menuOptions));
 
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -123,11 +111,10 @@ public class MainActivity extends MapActivity {
 		getActionBar().setHomeButtonEnabled(true);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	protected void onPause() {
 		System.gc();
-		MapView map = new MapView(this, new MapnikTileDownloader());
+		// MapView map = new MapView(this, new MapnikTileDownloader());
 		// If there is no map created it crashes trying to destroy maps
 		super.onPause();
 	}
@@ -175,11 +162,12 @@ public class MainActivity extends MapActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			cleanBackStack();
 			switch (position) {
 			case 0:// Timeline
 				getActionBar().setTitle("Timeline");
 				break;
-			case 1://Profile
+			case 1:// Profile
 				setTitle("Profile");
 				new ProfileAsyncTask(MainActivity.this).execute();
 				break;
@@ -190,23 +178,18 @@ public class MainActivity extends MapActivity {
 			case 3:// Map
 				setTitle("OpenStreetMap");
 				MapFragment fragment = new MapFragment();
-				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment).commit();
+				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment)
+						.commit();
 				break;
 			case 4:
 				setTitle("My routes");
 				new RoutesAsyncTask(MainActivity.this).execute("");
 				break;
-			case 5:// Games
-				getActionBar().setTitle("Play!");
-				loading.setVisibility(loading.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
-				contentFrame.setVisibility(contentFrame.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
-				Log.i("visibility","loading "+loading.getVisibility());
-				Log.i("visibility","contentFrame "+contentFrame.getVisibility());
-				break;
 			default:// Take a photo
 				setTitle("Take a photo");
 				PictureFragment fragmentPicture = new PictureFragment();
-				getFragmentManager().beginTransaction().addToBackStack("photo").replace(R.id.content_frame, fragmentPicture).commit();
+				getFragmentManager().beginTransaction().addToBackStack("photo")
+						.replace(R.id.content_frame, fragmentPicture).commit();
 				dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
 			}
 			mDrawerLayout.closeDrawer(mDrawerList);
@@ -399,40 +382,40 @@ public class MainActivity extends MapActivity {
 		} // ACTION_TAKE_PHOTO_S
 		} // switch
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-		if (getFragmentManager().getBackStackEntryCount()==0) {
-			AlertDialog dialog = new AlertDialog.Builder(this).create();
-			dialog.setTitle(getString(R.string.title_exit_dialog));
-			dialog.setMessage(getString(R.string.message_exit_dialog));
-			dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.button_positive),
-					new DialogInterface.OnClickListener() {
+		Log.i("back", getFragmentManager().getBackStackEntryCount() + "");
+		AlertDialog dialog = new AlertDialog.Builder(this).create();
+		dialog.setTitle(getString(R.string.title_exit_dialog));
+		dialog.setMessage(getString(R.string.message_exit_dialog));
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.button_positive),
+				new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int arg1) {
-							dialog.dismiss();
-							MainActivity.this.finish();
-						}
-					});
-			dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.button_negative),
-					new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						dialog.dismiss();
+						MainActivity.this.finish();
+					}
+				});
+		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.button_negative),
+				new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int arg1) {
-							dialog.dismiss();
-						}
-					});
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						dialog.dismiss();
+					}
+				});
+		if (getFragmentManager().getBackStackEntryCount() == 0) {
 			dialog.show();
+		} else if (getFragmentManager().getBackStackEntryCount() == 1) {
+			mDrawerLayout.openDrawer(Gravity.LEFT);
 		} else {
 			super.onBackPressed();
-			titles.pop();
-			getActionBar().setTitle(titles.peek());
 		}
 	}
-	
-	public void setTitle(String title) {
-		getActionBar().setTitle(title);
-		titles.push(title);
+
+	public void cleanBackStack() {
+		getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 	}
 }

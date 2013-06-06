@@ -108,8 +108,7 @@ public class Route {
 	}
 
 	private double roundOneDecimal(double d) {
-		DecimalFormat twoDForm = new DecimalFormat("#.#");
-		return Double.valueOf(twoDForm.format(d));
+		return (double)Math.round(d * 10) / 10;
 	}
 
 	public JSONObject toGeoJSON() {

@@ -7,7 +7,6 @@ import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionHeaderAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
 import mdiss.umappin.entities.Discussion;
-import mdiss.umappin.ui.MainActivity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,6 +42,7 @@ public class DiscussionHeadersFragment extends ListFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		getActivity().setTitle("Messages");
 		return inflater.inflate(R.layout.list,container,false);
 
 	}
@@ -58,7 +58,7 @@ public class DiscussionHeadersFragment extends ListFragment{
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				new DiscussionMessagesAsyncTask((MainActivity) getActivity()).execute(discussionHeaders.get(position).getId());
+				new DiscussionMessagesAsyncTask(getActivity()).execute(discussionHeaders.get(position).getId());
 			}
 		});
 	}
@@ -73,7 +73,7 @@ public class DiscussionHeadersFragment extends ListFragment{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_new_message:
-			((MainActivity) getActivity()).setTitle("New Message");
+			//TODO new message (subject, messages {message}, users (list id)
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

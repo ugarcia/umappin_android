@@ -34,7 +34,7 @@ public class RouteAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		return items.indexOf(items.get(position));
 	}
 
 	@Override

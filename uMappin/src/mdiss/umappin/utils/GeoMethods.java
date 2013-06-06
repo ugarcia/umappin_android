@@ -30,19 +30,14 @@ public class GeoMethods {
 		// We use network as default method to locate, but if we can't use it
 		// use others
 		Location destination = new Location("network");
-		String methodForLocate = "network";
 		try {
 			destination = locationmanager.getLastKnownLocation("network");
 			if (destination == null) {
 				destination = locationmanager.getLastKnownLocation("gps");
-				methodForLocate = "gps";
 			}
 			if (destination == null) {
 				destination = locationmanager.getLastKnownLocation("passive");
-				methodForLocate = "passive";
 			}
-			Log.i(Constants.logGeoMethods, "It's been used " + methodForLocate + " for locating");
-
 			// Google uses latitude and longitude in microdegrees, so it's
 			// necessary to do *1E6
 			return new GeoPoint((int) (destination.getLatitude() * 1E6), (int) (destination.getLongitude() * 1E6));

@@ -8,7 +8,6 @@ import mdiss.umappin.R;
 import mdiss.umappin.adapters.RouteAdapter;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.entities.Route;
-import mdiss.umappin.ui.MainActivity;
 import mdiss.umappin.utils.GeoMethods;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -59,8 +58,8 @@ public class RouteFragment extends ListFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				MapFragment fragment = new MapFragment();
-				((MainActivity) getActivity()).setTitle(routes.get(position-1).getName());
-				fragment.setRoute(routes.get(position-1).getRoutePoints());
+				fragment.setRoute(routes.get((int) id).getRoutePoints());
+				fragment.setRouteName(routes.get((int) id).getName());
 				getActivity().getFragmentManager().beginTransaction().addToBackStack("map")
 						.replace(R.id.content_frame, fragment).commit();
 			}
@@ -94,7 +93,7 @@ public class RouteFragment extends ListFragment {
 		case R.id.action_near_routes:
 			GeoPoint currentPoint = GeoMethods.getCurrentLocation(getActivity());
 			new RoutesAsyncTask(getActivity(), GeoMethods.getGeoJSON(currentPoint)).execute("/near/20");
-			((MainActivity) getActivity()).setTitle("Routes around");
+			getActivity().setTitle("Routes around");
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

@@ -35,6 +35,7 @@ public class MapFragment extends Fragment {
 
 	private MapView mapView;
 	private List<GeoPoint> route;
+	private String routeName="";
 
 	public MapFragment() {
 		super();
@@ -63,15 +64,10 @@ public class MapFragment extends Fragment {
 		if (route == null) {
 			route = new ArrayList<GeoPoint>();
 		}
-		if (route.isEmpty()) {
-			route = new ArrayList<GeoPoint>();
-			route.add(new GeoPoint(43.25696, -2.923434));
-			route.add(new GeoPoint(43.21696, -2.925440));
-			route.add(new GeoPoint(43.23696, -2.927444));
-		}
 		double distance = GeoMethods.getDistance(route);
 		Log.i(Constants.logGeoMethods, distance + " km");
 		if (!route.isEmpty()) {
+			getActivity().setTitle(routeName);
 			mapView.setCenter(route.get(0));
 			Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 			wayDefaultPaintFill.setStyle(Paint.Style.STROKE);
@@ -136,6 +132,14 @@ public class MapFragment extends Fragment {
 	public List<GeoPoint> getRoute() {
 		return route;
 	}
+	
+	public String getRouteName() {
+		return routeName;
+	}
+	
+	public void setRouteName(String routeName) {
+		this.routeName=routeName;
+	}
 
 	public void setRoute(List<GeoPoint> route) {
 		this.route = route;
@@ -176,6 +180,13 @@ public class MapFragment extends Fragment {
 			mapView.getMapPosition()
 					.setMapCenterAndZoomLevel(new MapPosition(pBoundingBox.getCenterPoint(), zoomLevel));
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mapView.getOverlays().clear();
+		Log.i("LifeCycle", "map destroy");
 	}
 
 }
