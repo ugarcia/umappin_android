@@ -18,16 +18,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class DiscussionMessagesFragment extends ListFragment{
 
 	private Discussion discussion;
 	private ListView mList;
 	private EditText mReplyText;
-	private Button mReplyButton;
+	private ImageButton mReplyButton;
 	
 	public DiscussionMessagesFragment() {
 		super();
@@ -55,15 +57,15 @@ public class DiscussionMessagesFragment extends ListFragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ViewGroup view = (ViewGroup) inflater.inflate(R.layout.list,container,false);
-		LinearLayout ll = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.reply_message,container,false);
+		RelativeLayout ll = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.reply_message,container,false);
 		view.addView(ll, view.getChildCount());
 		
 		//Get current window's height and width
 		Point point = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(point);
-        ll.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,(int)(point.y/6)));
+        ll.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,(int)(point.y/8)));
         
-        mReplyButton = (Button) view.findViewById(R.id.reply_button);
+        mReplyButton = (ImageButton) view.findViewById(R.id.reply_button);
         mReplyText = (EditText) view.findViewById(R.id.reply_text);
         mReplyButton.setOnClickListener(new OnClickListener() {
 			
