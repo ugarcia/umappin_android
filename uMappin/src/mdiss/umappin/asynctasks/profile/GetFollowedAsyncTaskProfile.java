@@ -2,16 +2,11 @@ package mdiss.umappin.asynctasks.profile;
 
 
 import org.json.JSONArray;
-
 import mdiss.umappin.asynctasks.general.GetFollowedAsyncTask;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.HandleredFragment;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
-
 import android.app.Activity;
-import android.app.Fragment;
-
 import android.os.Looper;
 
 

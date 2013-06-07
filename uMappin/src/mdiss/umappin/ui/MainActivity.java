@@ -9,6 +9,7 @@ import org.mapsforge.android.maps.MapActivity;
 
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
+import mdiss.umappin.asynctasks.GetNewsAsyncTask;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.entities.LateralMenuItem;
@@ -24,6 +25,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,7 +38,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +79,7 @@ public class MainActivity extends MapActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		new GetNewsAsyncTask(this).execute();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -162,28 +163,33 @@ public class MainActivity extends MapActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			cleanBackStack();
 			switch (position) {
 			case 0:// Timeline
 				getActionBar().setTitle("Timeline");
+				new GetNewsAsyncTask(MainActivity.this).execute();
+				cleanBackStack();
 				break;
 			case 1:// Profile
 				setTitle("Profile");
 				new ProfileAsyncTask(MainActivity.this).execute();
+				cleanBackStack();
 				break;
 			case 2:// Messages
 				setTitle("Messages");
 				new DiscussionHeadersAsyncTask(MainActivity.this).execute();
+				cleanBackStack();
 				break;
 			case 3:// Map
 				setTitle("OpenStreetMap");
 				MapFragment fragment = new MapFragment();
 				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment)
 						.commit();
+				cleanBackStack();
 				break;
 			case 4:
 				setTitle("My routes");
 				new RoutesAsyncTask(MainActivity.this).execute("");
+				cleanBackStack();
 				break;
 			default:// Take a photo
 				setTitle("Take a photo");
@@ -326,7 +332,8 @@ public class MainActivity extends MapActivity {
 		/* So pre-scale the target bitmap into which the file is decoded */
 
 		/* Get the size of the ImageView */
-		mImageView = (ImageView) this.findViewById(R.id.current_picture);
+		Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
+		mImageView = (ImageView) fragment.getView().findViewById(R.id.current_picture);
 		int targetW = mImageView.getWidth();
 		int targetH = mImageView.getHeight();
 
@@ -370,6 +377,9 @@ public class MainActivity extends MapActivity {
 		case ACTION_TAKE_PHOTO_B: {
 			if (resultCode == RESULT_OK) {
 				handleBigCameraPhoto();
+			} else {
+				cleanBackStack();
+				new GetNewsAsyncTask(this).execute();
 			}
 			break;
 		} // ACTION_TAKE_PHOTO_B
@@ -377,6 +387,8 @@ public class MainActivity extends MapActivity {
 		case ACTION_TAKE_PHOTO_S: {
 			if (resultCode == RESULT_OK) {
 				handleSmallCameraPhoto(data);
+			} else {
+				
 			}
 			break;
 		} // ACTION_TAKE_PHOTO_S
@@ -385,7 +397,6 @@ public class MainActivity extends MapActivity {
 
 	@Override
 	public void onBackPressed() {
-		Log.i("back", getFragmentManager().getBackStackEntryCount() + "");
 		AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.setTitle(getString(R.string.title_exit_dialog));
 		dialog.setMessage(getString(R.string.message_exit_dialog));
@@ -406,10 +417,11 @@ public class MainActivity extends MapActivity {
 						dialog.dismiss();
 					}
 				});
-		if (getFragmentManager().getBackStackEntryCount() == 0) {
+		if (getFragmentManager().getBackStackEntryCount() <= 1 && this.getTitle().equals("Timeline")) {
 			dialog.show();
-		} else if (getFragmentManager().getBackStackEntryCount() == 1) {
-			mDrawerLayout.openDrawer(Gravity.LEFT);
+		} else if (getFragmentManager().getBackStackEntryCount() <= 1 && !this.getTitle().equals("Timeline")) {
+			cleanBackStack();
+			new GetNewsAsyncTask(this).execute();
 		} else {
 			super.onBackPressed();
 		}

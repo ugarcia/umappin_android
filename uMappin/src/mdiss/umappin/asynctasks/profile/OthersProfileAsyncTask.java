@@ -3,7 +3,6 @@ package mdiss.umappin.asynctasks.profile;
 import mdiss.umappin.R;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.OthersProfileFragment;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 

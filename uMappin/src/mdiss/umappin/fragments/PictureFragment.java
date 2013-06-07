@@ -48,6 +48,8 @@ public class PictureFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
+		getActivity().setTitle("Pictures");
+		
 		View view = inflater.inflate(R.layout.locate_picture, container, false);
 		mFrameLayout = (FrameLayout) view.findViewById(R.id.map_container);
 		
