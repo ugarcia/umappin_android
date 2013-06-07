@@ -42,7 +42,7 @@ public class GetNewsAsyncTask extends AsyncTask<Void,Void,JSONArray> {
 		}
 		for (int i=0;i<array.length();i++) {
 			try {
-				String id=array.getJSONObject(i).getString("id");
+				String id=array.getJSONObject(i).getString("writerId");
 				JSONObject json = new JSONObject(HttpConnections.makeGetRequest(Constants.uMappinUrl + "users/" + id, null, null, activity));
 				array.getJSONObject(i).put("firstName", json.getString("firstName"));
 				array.getJSONObject(i).put("lastName", json.getString("lastName"));

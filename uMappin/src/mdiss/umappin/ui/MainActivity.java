@@ -25,7 +25,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -332,8 +331,7 @@ public class MainActivity extends MapActivity {
 		/* So pre-scale the target bitmap into which the file is decoded */
 
 		/* Get the size of the ImageView */
-		Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
-		mImageView = (ImageView) fragment.getView().findViewById(R.id.current_picture);
+		mImageView = (ImageView) this.findViewById(R.id.current_picture);
 		int targetW = mImageView.getWidth();
 		int targetH = mImageView.getHeight();
 

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class Publication {
 
 	private String id;
+	private String writerId;
 	private String subject;
 	private String postPicture;
 	private int likes;
@@ -19,10 +20,15 @@ public class Publication {
 	private long timeStamp;
 	private String lastWrote;
 	private String content;
+	private String username="";
+	
 	
 	public Publication(JSONObject json) {
 		try {
 			this.id=json.getString("id");
+			if (!json.isNull("writerId")) {
+				this.writerId=json.getString("writerId");
+			}
 			if (!json.isNull("subject")) {
 				this.subject=json.getString("subject");
 			} else {
@@ -37,6 +43,12 @@ public class Publication {
 				this.postPicture=Constants.uMappinUrl.subSequence(0, Constants.uMappinUrl.length()-1) + json.getString("postPicture");
 			} else {
 				this.postPicture="";
+			}
+			if (!json.isNull("firstName")) {
+				this.username=json.getString("firstName")+" ";
+			}
+			if (!json.isNull("lastName")) {
+				this.username=this.username+json.getString("lastName");
 			}
 			this.lastWrote=json.getString("lastWrote");
 			this.timeStamp=json.getLong("timeStamp");
@@ -70,6 +82,12 @@ public class Publication {
 	}
 	public String getContent() {
 		return content;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public String getWriterId() {
+		return writerId;
 	}
 	
 	public static List<Publication> getPublications(JSONArray array) {

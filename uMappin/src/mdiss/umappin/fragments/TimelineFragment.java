@@ -3,6 +3,7 @@ package mdiss.umappin.fragments;
 import java.util.List;
 
 import mdiss.umappin.R;
+import mdiss.umappin.adapters.PublicationAdapter;
 import mdiss.umappin.entities.Publication;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -27,7 +28,8 @@ public class TimelineFragment extends ListFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
+		PublicationAdapter adapter = new PublicationAdapter(getActivity(),publications);
+		setListAdapter(adapter);
 	}
 
 	public List<Publication> getPublications() {

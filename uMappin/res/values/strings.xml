@@ -38,5 +38,6 @@
     <string name="send">Send</string>
     <string name="subject">subject</string>
     <string name="message">message</string>
+    <string name="like">Like</string>
 
 </resources>
