@@ -61,14 +61,35 @@ public class PublicationAdapter extends BaseAdapter {
 		holder.username.setText(item.getUsername());
 		holder.subject.setText(item.getSubject());
 		holder.content.setText(item.getContent());
+		holder.numberOfLikes.setText(item.getLikes() + " likes");
 		holder.like.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				//TODO send like to server
+				ViewGroup vg = (ViewGroup) v.getParent();
+				TextView likes = (TextView) vg.findViewById(R.id.numberOfLikes);
+				Button b = (Button) v;
+				if (b.getText().toString().equals("Like")) {
+					b.setText("Unlike");
+					int numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
+					numberLikes++;
+					if (numberLikes==1) {
+						likes.setText("1 like");
+					} else {
+						likes.setText(numberLikes + " likes");
+					}
+				} else {
+					int numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
+					numberLikes--;
+					if (numberLikes==1) {
+						likes.setText("1 like");
+					} else {
+						likes.setText(numberLikes + " likes");
+					}
+					b.setText("Like");
+				}
 			}
 		});
-		//holder.name.setText(item.getName());
 		return view;
 	}
 
