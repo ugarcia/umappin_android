@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mdiss.umappin.utils.Constants;
+import mdiss.umappin.utils.HttpConnections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.widget.ImageView;
 
 public class Publication {
 
@@ -20,6 +25,7 @@ public class Publication {
 	private String lastWrote;
 	private String content;
 	private String username="";
+	public String image="";
 	
 	
 	public Publication(JSONObject json) {
@@ -49,6 +55,11 @@ public class Publication {
 			if (!json.isNull("lastName")) {
 				this.username=this.username+json.getString("lastName");
 			}
+			if (!json.isNull("user")){
+				JSONObject user = (JSONObject) json.get("user");
+				this.image=user.getString("profilePicture");
+			}
+			
 			this.lastWrote=json.getString("lastWrote");
 			this.timeStamp=json.getLong("timeStamp");
 			this.replies=json.getInt("replies");
@@ -85,7 +96,15 @@ public class Publication {
 	public String getUsername() {
 		return username;
 	}
-	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public static List<Publication> getPublications(JSONArray array) {
 		ArrayList<Publication> list = new ArrayList<Publication>();
 		for (int i = 0; i < array.length(); i++) {
@@ -97,4 +116,5 @@ public class Publication {
 		}
 		return list;
 	}
+	
 }

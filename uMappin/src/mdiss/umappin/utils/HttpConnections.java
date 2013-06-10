@@ -233,6 +233,7 @@ public class HttpConnections {
 			response = httpClient.execute(request);
 			StatusLine statusLine = response.getStatusLine();
 	        int statusCode = statusLine.getStatusCode();
+	        Log.i("Statuscode",statusCode+"");
 	        if (statusCode == 200) {
 	            HttpEntity entity = response.getEntity();
 	            byte[] bytes = EntityUtils.toByteArray(entity);
@@ -248,7 +249,10 @@ public class HttpConnections {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 		return null;
 
 	}

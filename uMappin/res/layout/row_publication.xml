@@ -1,55 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+	 android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dip" >
+    android:background="@color/background"
+    android:layout_marginTop="3dip">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2" >
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left" />
-
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2" >
-
-        <TextView
-            android:id="@+id/numberOfLikes"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <Button
-            android:id="@+id/buttonLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/like" />
-    </LinearLayout>
-
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_marginBottom="2dip"
+		    android:layout_marginLeft="2dip"
+		    >
+		
+		    <RelativeLayout
+		       android:layout_width="fill_parent"
+		       android:layout_height="wrap_content"
+		        
+		        >
+		          <RelativeLayout
+		       android:id="@+id/publication_row_pict"
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:layout_centerVertical="true"
+		        >
+		
+			        <ImageView
+			            android:id="@+id/userImage"
+			            android:layout_width="60dip"
+					    android:layout_height="60dip"
+					    android:background="@color/darkBackground"
+			            android:contentDescription="@string/user_image_description"
+			            android:scaleType="centerCrop" 
+			            
+			            />
+			
+			        <TextView
+			            android:id="@+id/username"
+			            android:layout_width="60dip"
+			            android:layout_height="wrap_content"
+			            android:gravity="center"
+				        android:textAlignment="center"
+				        android:textSize="15.0sp" 
+				        android:background="@color/TransparentBackground"
+				        android:textColor="@color/White"
+				        android:layout_alignParentBottom="true"
+				       />
+			    </RelativeLayout>
+			    <LinearLayout 
+			        android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:orientation="vertical"
+			        android:layout_toRightOf="@id/publication_row_pict"
+			        android:layout_toLeftOf="@+id/publication_like"
+			        android:id="@+id/publication_content"
+		            >
+				     <TextView
+			            android:id="@+id/subject"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_alignParentTop="true"
+			            android:textSize="15sp"
+			            android:paddingLeft="5dip"
+			            android:paddingRight="5dip"
+			            android:paddingTop="2dip"
+			            android:paddingBottom="2dip"
+			            android:layout_toRightOf="@id/publication_row_pict"
+			            android:layout_toLeftOf="@+id/publication_like"
+			            android:text="hola" />
+			
+			        <TextView
+			            android:id="@+id/content"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_alignParentTop="true"
+			            android:textSize="15sp"
+			            android:paddingLeft="5dip"
+			            android:paddingRight="5dip"
+			            android:paddingTop="2dip"
+			            android:paddingBottom="2dip"
+			            
+			            android:text="hola" />
+		        </LinearLayout>
+		        <LinearLayout
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:orientation="horizontal"
+				        android:weightSum="2" 
+				        android:layout_alignParentRight="true"
+				        android:id="@id/publication_like"
+				        >
+				
+				        <TextView
+				            android:id="@+id/numberOfLikes"
+				            android:layout_width="0dip"
+				            android:layout_height="wrap_content"
+				            android:layout_weight="1"
+				            android:gravity="center" 
+				            android:text="50"/>
+				
+				        <ImageButton
+				            android:id="@+id/buttonLike"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_weight="1.23"
+				            android:gravity="center"
+				            android:background="@drawable/simple_button"
+				            android:src="@drawable/kg_add_widget_disabled"
+				            android:text="@string/like" 
+				            />
+				
+				 </LinearLayout>
+		
+		    </RelativeLayout>
+		    
+		
+		</LinearLayout>
+		<View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:visibility="visible"
+            android:background="@color/titles"
+ 		 />
 </LinearLayout>

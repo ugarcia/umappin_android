@@ -2,8 +2,14 @@ package mdiss.umappin.adapters;
 
 import java.util.List;
 
+import org.apache.http.HttpConnection;
+
 import mdiss.umappin.R;
+import mdiss.umappin.asynctasks.ImageDownloadAsyncTask;
+import mdiss.umappin.asynctasks.NoCacheImageDownloadAsyncTask;
 import mdiss.umappin.entities.Publication;
+import mdiss.umappin.utils.Constants;
+import mdiss.umappin.utils.HttpConnections;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +18,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PublicationAdapter extends BaseAdapter {
@@ -52,13 +60,16 @@ public class PublicationAdapter extends BaseAdapter {
 			holder.subject = (TextView) view.findViewById(R.id.subject);
 			holder.content = (TextView) view.findViewById(R.id.content);
 			holder.numberOfLikes = (TextView) view.findViewById(R.id.numberOfLikes);
-			holder.like = (Button) view.findViewById(R.id.buttonLike);
+			holder.like = (ImageButton) view.findViewById(R.id.buttonLike);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
 		Publication item = items.get(position);
 		holder.username.setText(item.getUsername());
+		String urlPhoto = Constants.uMappinUrl.substring(0, Constants.uMappinUrl.length()-1) + item.getImage();
+		//new ImageDownloadAsyncTask(holder.image).execute(urlPhoto);
+		
 		holder.subject.setText(item.getSubject());
 		holder.content.setText(item.getContent());
 		holder.numberOfLikes.setText(item.getLikes() + " likes");
@@ -95,7 +106,8 @@ public class PublicationAdapter extends BaseAdapter {
 
 	public static class ViewHolder {
 		public TextView username, subject, content, numberOfLikes;
-		public Button like;
+		public ImageButton like;
+		public ImageView image;
 	}
 	
 }
