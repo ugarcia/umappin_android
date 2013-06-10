@@ -61,6 +61,7 @@ public class PublicationAdapter extends BaseAdapter {
 			holder.content = (TextView) view.findViewById(R.id.content);
 			holder.numberOfLikes = (TextView) view.findViewById(R.id.numberOfLikes);
 			holder.like = (ImageButton) view.findViewById(R.id.buttonLike);
+			holder.image = (ImageView)view.findViewById(R.id.userImage);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
@@ -68,7 +69,7 @@ public class PublicationAdapter extends BaseAdapter {
 		Publication item = items.get(position);
 		holder.username.setText(item.getUsername());
 		String urlPhoto = Constants.uMappinUrl.substring(0, Constants.uMappinUrl.length()-1) + item.getImage();
-		//new ImageDownloadAsyncTask(holder.image).execute(urlPhoto);
+		new ImageDownloadAsyncTask(holder.image).execute(urlPhoto);
 		
 		holder.subject.setText(item.getSubject());
 		holder.content.setText(item.getContent());
