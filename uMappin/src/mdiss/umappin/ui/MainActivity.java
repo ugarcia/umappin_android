@@ -8,6 +8,7 @@ import java.util.Date;
 import org.mapsforge.android.maps.MapActivity;
 
 import mdiss.umappin.R;
+import mdiss.umappin.adapters.LateralMenuAdapter;
 import mdiss.umappin.asynctasks.DiscussionHeadersAsyncTask;
 import mdiss.umappin.asynctasks.GetNewsAsyncTask;
 import mdiss.umappin.asynctasks.RoutesAsyncTask;
@@ -15,7 +16,6 @@ import mdiss.umappin.asynctasks.profile.ProfileAsyncTask;
 import mdiss.umappin.entities.LateralMenuItem;
 import mdiss.umappin.fragments.MapFragment;
 import mdiss.umappin.fragments.PictureFragment;
-import mdiss.umappin.ui.adapter.LateralMenuAdapter;
 import mdiss.umappin.utils.AlbumStorageDirFactory;
 import mdiss.umappin.utils.BaseAlbumDirFactory;
 import mdiss.umappin.utils.Constants;

@@ -1,4 +1,4 @@
-package mdiss.umappin.ui.adapter;
+package mdiss.umappin.adapters;
 
 import java.util.ArrayList;
 

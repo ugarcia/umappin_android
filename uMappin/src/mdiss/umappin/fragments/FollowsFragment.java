@@ -4,9 +4,9 @@ package mdiss.umappin.fragments;
 
 import mdiss.umappin.R;
 
+import mdiss.umappin.adapters.FollowersAdapter;
+import mdiss.umappin.adapters.FollowingAdapter;
 import mdiss.umappin.entities.User;
-import mdiss.umappin.ui.adapter.FollowersAdapter;
-import mdiss.umappin.ui.adapter.FollowingAdapter;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

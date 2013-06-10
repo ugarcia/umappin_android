@@ -1,7 +1,10 @@
 package mdiss.umappin.asynctasks.profile;
 
 import mdiss.umappin.R;
+import mdiss.umappin.asynctasks.general.GetFollowedAsyncTask;
+import mdiss.umappin.asynctasks.general.GetFollowsAsyncTask;
 import mdiss.umappin.entities.User;
+import mdiss.umappin.fragments.DiscussionHeadersFragment;
 import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
@@ -14,22 +17,17 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.view.View;
 
-public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
+public class NewDiscussionUserProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 
 	private Activity activity;
 	
 	
 	
-	public ProfileAsyncTask(Activity activity) {
+	public NewDiscussionUserProfileAsyncTask(Activity activity) {
 		this.activity=activity;
 	}
 	
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		activity.findViewById(R.id.content_frame).setVisibility(View.GONE);
-		activity.findViewById(R.id.loading).setVisibility(View.VISIBLE);
-	}
+	
 	
 	@Override
 	protected JSONObject doInBackground(Void... arg0) {
@@ -51,16 +49,11 @@ public class ProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 		
 		if(!HttpConnections.goToLoginIfneed()){
 			User currentUser = new User(result);
-			ProfileFragment fragment = new ProfileFragment();
+			DiscussionHeadersFragment fragment = new DiscussionHeadersFragment();
 			fragment.setProfileData(currentUser);
 			
-			activity.getFragmentManager().beginTransaction().addToBackStack("profile").replace(R.id.content_frame, fragment).commit();
-			activity.findViewById(R.id.loading).setVisibility(View.GONE);
-			activity.findViewById(R.id.content_frame).setVisibility(View.VISIBLE);
-			
-			new DownloadProfilePictureAsyncTaskProfile(currentUser,activity,fragment).execute(currentUser.getPhotoUri());
-			new GetFollowsAsyncTaskProfile(currentUser, activity, fragment).execute();
-			new GetFollowedAsyncTaskProfile(currentUser, activity, fragment).execute();
+			//new GetFollowedAsyncTask(currentUser, activity).execute();
+			new GetFollowedAsyncTask(currentUser, activity).execute();
 		
 		}
 	}
