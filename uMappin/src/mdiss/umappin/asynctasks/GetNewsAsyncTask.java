@@ -9,7 +9,6 @@ import mdiss.umappin.utils.HttpConnections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -39,16 +38,6 @@ public class GetNewsAsyncTask extends AsyncTask<Void,Void,JSONArray> {
 			array = new JSONArray(HttpConnections.makeGetRequest(Constants.uMappinUrl + "news", null, null, activity));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		for (int i=0;i<array.length();i++) {
-			try {
-				String id=array.getJSONObject(i).getString("writerId");
-				JSONObject json = new JSONObject(HttpConnections.makeGetRequest(Constants.uMappinUrl + "users/" + id, null, null, activity));
-				array.getJSONObject(i).put("firstName", json.getString("firstName"));
-				array.getJSONObject(i).put("lastName", json.getString("lastName"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
 		}
 		return array;
 	}

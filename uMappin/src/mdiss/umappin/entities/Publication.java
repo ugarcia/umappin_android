@@ -12,7 +12,6 @@ import org.json.JSONObject;
 public class Publication {
 
 	private String id;
-	private String writerId;
 	private String subject;
 	private String postPicture;
 	private int likes;
@@ -26,8 +25,8 @@ public class Publication {
 	public Publication(JSONObject json) {
 		try {
 			this.id=json.getString("id");
-			if (!json.isNull("writerId")) {
-				this.writerId=json.getString("writerId");
+			if (!json.isNull("user")) {
+				this.username=json.getJSONObject("user").getString("name");
 			}
 			if (!json.isNull("subject")) {
 				this.subject=json.getString("subject");
@@ -85,9 +84,6 @@ public class Publication {
 	}
 	public String getUsername() {
 		return username;
-	}
-	public String getWriterId() {
-		return writerId;
 	}
 	
 	public static List<Publication> getPublications(JSONArray array) {
