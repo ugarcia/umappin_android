@@ -120,7 +120,6 @@ public class PictureFragment extends Fragment {
 				
 				@Override
 				public void onClick(View v) {
-					GeoPoint currentPoint = GeoMethods.getCurrentLocation(getActivity());
 					mImageView = (ImageView) getActivity().findViewById(R.id.current_picture);
 					String imageBase64 = ImageUtils.getBase64(mImageView);
 					EditText et = (EditText) dialog.findViewById(R.id.title);
@@ -133,8 +132,8 @@ public class PictureFragment extends Fragment {
 						json.put("content", "data:image/jpeg;base64;" + imageBase64);
 						json.put("title",title);
 						json.put("description",description);
-						json.put("latitude",currentPoint.getLatitude());
-						json.put("longitude",currentPoint.getLongitude());
+						json.put("latitude",picturePoint.getLatitude());
+						json.put("longitude",picturePoint.getLongitude());
 						json.put("is_searchable",true);
 						json.put("date_created",date.getTime());
 						new UploadImageAsyncTask(getActivity()).execute(json);
