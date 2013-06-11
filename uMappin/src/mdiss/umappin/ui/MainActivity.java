@@ -179,11 +179,11 @@ public class MainActivity extends MapActivity {
 				cleanBackStack();
 				break;
 			case 3:// Map
+				cleanBackStack();
 				setTitle("OpenStreetMap");
 				MapFragment fragment = new MapFragment();
 				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment)
 						.commit();
-				cleanBackStack();
 				break;
 			case 4:
 				setTitle("My routes");
