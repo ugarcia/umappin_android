@@ -68,23 +68,45 @@ public class PublicationAdapter extends BaseAdapter {
 		
 		holder.subject.setText(item.getSubject());
 		holder.content.setText(item.getContent());
-		holder.numberOfLikes.setText(item.getLikes() + " likes");
+		
+		if (item.getLikes() ==1) {
+			holder.numberOfLikes.setText("1 like");
+		} else if (item.getLikes()  >1){
+			holder.numberOfLikes.setText(item.getLikes()  + " likes");
+		}else{
+			holder.numberOfLikes.setText("No likes");
+		}
 		holder.like.setOnClickListener(new OnClickListener() {
-			
+		boolean liked=false;
 			@Override
 			public void onClick(View v) {
-				boolean liked=false;
+				
 				ViewGroup vg = (ViewGroup) v.getParent();
 				TextView likes = (TextView) vg.findViewById(R.id.numberOfLikes);
+				int numberLikes;
+				if (likes.getText().toString().compareToIgnoreCase("No likes")==0){
+					numberLikes = 0;
+				}else{
+					numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
+				}
 				if (!liked) {
 					liked=true;
-					int numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
+					
 					numberLikes++;
-					if (numberLikes==1) {
-						likes.setText("1 like");
-					} else {
-						likes.setText(numberLikes + " likes");
-					}
+					
+					((ImageButton)v).setImageResource(android.R.drawable.ic_menu_delete);
+				}else{
+					liked=false;
+					((ImageButton)v).setImageResource(android.R.drawable.ic_menu_add);
+					numberLikes--;
+					
+				}
+				if (numberLikes==1) {
+					likes.setText("1 like");
+				} else if (numberLikes >1){
+					likes.setText(numberLikes + " likes");
+				}else{
+					likes.setText("No likes");
 				}
 			}
 		});

@@ -119,7 +119,7 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		keyboard= (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-		
+		getActivity().setTitle("Profile");
 		//get elements from XML
 		name = (TextView) getView().findViewById(R.id.firstName);		
 		profilePicture = (ImageView)getView().findViewById(R.id.profileImage);
