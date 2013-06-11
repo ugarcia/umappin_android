@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,11 +73,11 @@ public class PublicationAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
+				boolean liked=false;
 				ViewGroup vg = (ViewGroup) v.getParent();
 				TextView likes = (TextView) vg.findViewById(R.id.numberOfLikes);
-				Button b = (Button) v;
-				if (b.getText().toString().equals("Like")) {
-					b.setText("Unlike");
+				if (!liked) {
+					liked=true;
 					int numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
 					numberLikes++;
 					if (numberLikes==1) {
@@ -86,15 +85,6 @@ public class PublicationAdapter extends BaseAdapter {
 					} else {
 						likes.setText(numberLikes + " likes");
 					}
-				} else {
-					int numberLikes = Integer.valueOf(likes.getText().toString().split(" ")[0]);
-					numberLikes--;
-					if (numberLikes==1) {
-						likes.setText("1 like");
-					} else {
-						likes.setText(numberLikes + " likes");
-					}
-					b.setText("Like");
 				}
 			}
 		});
