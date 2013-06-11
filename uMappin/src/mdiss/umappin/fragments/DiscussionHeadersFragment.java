@@ -9,10 +9,8 @@ import org.json.JSONObject;
 
 import mdiss.umappin.R;
 import mdiss.umappin.adapters.DiscussionHeaderAdapter;
-import mdiss.umappin.adapters.FollowingAdapter;
 import mdiss.umappin.asynctasks.DiscussionMessagesAsyncTask;
 import mdiss.umappin.asynctasks.SendMessage;
-import mdiss.umappin.asynctasks.profile.NewDiscussionUserProfileAsyncTask;
 import mdiss.umappin.entities.Discussion;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.utils.Constants;
@@ -29,7 +27,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;

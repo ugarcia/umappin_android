@@ -1,11 +1,8 @@
 package mdiss.umappin.asynctasks.profile;
 
-import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.general.GetFollowedAsyncTask;
-import mdiss.umappin.asynctasks.general.GetFollowsAsyncTask;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.DiscussionHeadersFragment;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 
@@ -15,7 +12,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.view.View;
 
 public class NewDiscussionUserProfileAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 

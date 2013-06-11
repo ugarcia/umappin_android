@@ -2,14 +2,10 @@ package mdiss.umappin.adapters;
 
 import java.util.List;
 
-import org.apache.http.HttpConnection;
-
 import mdiss.umappin.R;
 import mdiss.umappin.asynctasks.ImageDownloadAsyncTask;
-import mdiss.umappin.asynctasks.NoCacheImageDownloadAsyncTask;
 import mdiss.umappin.entities.Publication;
 import mdiss.umappin.utils.Constants;
-import mdiss.umappin.utils.HttpConnections;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;

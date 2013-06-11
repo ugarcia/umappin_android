@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import mdiss.umappin.entities.User;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 import mdiss.umappin.utils.HttpConnections;
 

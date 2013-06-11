@@ -6,6 +6,7 @@ import mdiss.umappin.R;
 
 import mdiss.umappin.entities.User;
 import mdiss.umappin.utils.Constants;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +70,7 @@ public class ProfileFragment extends HandleredFragment implements OnClickListene
 	private Boolean followedLoad = false;
 
 
+	@SuppressLint("HandlerLeak")
 	private final Handler myHandler = new Handler(){
 		public void handleMessage(final Message msg){
 			switch (msg.what){

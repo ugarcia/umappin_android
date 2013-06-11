@@ -5,16 +5,13 @@ import java.util.concurrent.ExecutionException;
 
 import mdiss.umappin.asynctasks.general.DownloadPictureAsyncTask;
 import mdiss.umappin.asynctasks.profile.ProfileSaveAsyncTask;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 
-import org.apache.http.HttpConnection;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 
 public class User {

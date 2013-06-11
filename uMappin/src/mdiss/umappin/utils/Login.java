@@ -16,6 +16,7 @@ public class Login  {
 	 */
 	private static Activity parentActivity;
 	private static String token;
+	@SuppressWarnings("unused")
 	private static int fakeToken = 0;
 	
 	public static boolean savedData() {

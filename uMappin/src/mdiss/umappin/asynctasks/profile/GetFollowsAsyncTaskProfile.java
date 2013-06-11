@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import mdiss.umappin.asynctasks.general.GetFollowsAsyncTask;
 import mdiss.umappin.entities.User;
 import mdiss.umappin.fragments.HandleredFragment;
-import mdiss.umappin.fragments.ProfileFragment;
 import mdiss.umappin.utils.Constants;
 
 import android.app.Activity;

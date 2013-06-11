@@ -4,15 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mdiss.umappin.utils.Constants;
-import mdiss.umappin.utils.HttpConnections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.graphics.Bitmap;
-import android.util.Log;
-import android.widget.ImageView;
 
 public class Publication {
 

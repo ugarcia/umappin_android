@@ -27,7 +27,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.util.Log;
 
 import mdiss.umappin.ui.LoginActivity;
@@ -49,6 +48,7 @@ public class HttpConnections {
 	static String jsonBody;
 	static List<NameValuePair> lastHeader;
 	static String lastResponse;
+	@SuppressWarnings("unused")
 	private static Boolean loginFinish =false;
 	
 	public static String makeGetRequest(String url, List<NameValuePair>  body, List<NameValuePair> header,
