@@ -108,7 +108,6 @@ public class PictureFragment extends Fragment {
 		MainActivity main = (MainActivity) getActivity();
 		switch (item.getItemId()) {
 		case R.id.action_new_photo:
-			main.cleanBackStack();
 			main.dispatchTakePictureIntent(MainActivity.ACTION_TAKE_PHOTO_B);
 			return true;
 		case R.id.action_upload_photo:
