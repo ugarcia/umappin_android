@@ -67,7 +67,7 @@ public class MainActivity extends MapActivity {
 	// "Map", "Routes", "Games", "Take a photo" };
 
 	private LateralMenuItem[] menuOptions = new LateralMenuItem[] {
-			new LateralMenuItem("Timeline", R.drawable.ic_menu_friendslist),
+			new LateralMenuItem("Activity", R.drawable.ic_menu_friendslist),
 			new LateralMenuItem("Profile", R.drawable.ic_contact_picture),
 			new LateralMenuItem("Messages", R.drawable.sym_action_email),
 			new LateralMenuItem("Map", R.drawable.ic_menu_mapmode),
@@ -169,29 +169,24 @@ public class MainActivity extends MapActivity {
 				cleanBackStack();
 				break;
 			case 1:// Profile
-				setTitle("Profile");
 				new ProfileAsyncTask(MainActivity.this).execute();
 				cleanBackStack();
 				break;
 			case 2:// Messages
-				setTitle("Messages");
 				new DiscussionHeadersAsyncTask(MainActivity.this).execute();
 				cleanBackStack();
 				break;
 			case 3:// Map
 				cleanBackStack();
-				setTitle("OpenStreetMap");
 				MapFragment fragment = new MapFragment();
 				getFragmentManager().beginTransaction().addToBackStack("map").replace(R.id.content_frame, fragment)
 						.commit();
 				break;
 			case 4:
-				setTitle("My routes");
 				new RoutesAsyncTask(MainActivity.this).execute("");
 				cleanBackStack();
 				break;
 			default:// Take a photo
-				setTitle("Take a photo");
 				PictureFragment fragmentPicture = new PictureFragment();
 				getFragmentManager().beginTransaction().addToBackStack("photo")
 						.replace(R.id.content_frame, fragmentPicture).commit();
@@ -415,9 +410,9 @@ public class MainActivity extends MapActivity {
 						dialog.dismiss();
 					}
 				});
-		if (getFragmentManager().getBackStackEntryCount() <= 1 && this.getTitle().equals("Timeline")) {
+		if (getFragmentManager().getBackStackEntryCount() <= 1 && this.getTitle().equals("Activity")) {
 			dialog.show();
-		} else if (getFragmentManager().getBackStackEntryCount() <= 1 && !this.getTitle().equals("Timeline")) {
+		} else if (getFragmentManager().getBackStackEntryCount() <= 1 && !this.getTitle().equals("Activity")) {
 			cleanBackStack();
 			new GetNewsAsyncTask(this).execute();
 		} else {

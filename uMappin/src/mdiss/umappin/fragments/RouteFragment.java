@@ -37,6 +37,7 @@ public class RouteFragment extends ListFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Log.i("LifeCycle", "onViewCreated");
+		getActivity().setTitle("My routes");
 		super.onViewCreated(view, savedInstanceState);
 		if (firstTime) {
 			View header = getActivity().getLayoutInflater().inflate(R.layout.route_list_header, null);

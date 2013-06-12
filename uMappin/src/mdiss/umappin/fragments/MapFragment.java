@@ -44,8 +44,10 @@ public class MapFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		initializeMap();
-		if (!getActivity().getActionBar().getTitle().equals("OpenStreetMap")) {
+		if (route!=null) {
 			showRoute();
+		} else {
+			getActivity().setTitle("OpenStreetMap");
 		}
 		return mapView;
 	}
