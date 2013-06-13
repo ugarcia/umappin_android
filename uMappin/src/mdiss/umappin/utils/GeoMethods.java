@@ -29,28 +29,22 @@ public class GeoMethods {
 		// We use network as default method to locate, but if we can't use it
 		// use others
 		Location destination = new Location("network");
-		try {
-			destination = locationmanager.getLastKnownLocation("network");
-			if (destination == null) {
-				destination = locationmanager.getLastKnownLocation("gps");
-			}
-			if (destination == null) {
-				destination = locationmanager.getLastKnownLocation("passive");
-			}
-			// Google uses latitude and longitude in microdegrees, so it's
-			// necessary to do *1E6
-			return new GeoPoint((int) (destination.getLatitude() * 1E6), (int) (destination.getLongitude() * 1E6));
-		} catch (Exception e) {
-			e.printStackTrace();
-			// We return a point to show if we can't use location
-			// TODO show something if can't get location
-			return new GeoPoint(42.6, -2.92);
+		destination = locationmanager.getLastKnownLocation("network");
+		if (destination == null) {
+			destination = locationmanager.getLastKnownLocation("gps");
 		}
+		if (destination == null) {
+			destination = locationmanager.getLastKnownLocation("passive");
+		}
+		// Google uses latitude and longitude in microdegrees, so it's
+		// necessary to do *1E6
+		return new GeoPoint((int) (destination.getLatitude() * 1E6), (int) (destination.getLongitude() * 1E6));
+
 	}
 
 	public static Double getDistance(GeoPoint p1, GeoPoint p2) {
-		double dLat = p2.getLatitude() - p1.getLatitude();
-		double dLon = p2.getLongitude() - p1.getLongitude();
+		double dLat = p2.getLatitude() / 1E6 - p1.getLatitude() / 1E6;
+		double dLon = p2.getLongitude() / 1E6 - p1.getLongitude() / 1E6;
 		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(p1.getLatitude()))
 				* Math.cos(Math.toRadians(p2.getLatitude())) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
 		double distance = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
@@ -102,18 +96,19 @@ public class GeoMethods {
 		mapView.getController().setZoom(zoomLevel);
 		return mapView;
 	}
-	
-	public static double getDistance(List<GeoPoint> routePoints) {// in kilometers
+
+	public static double getDistance(List<GeoPoint> routePoints) {// in
+																	// kilometers
 		double distance = 0.0;
 		for (int i = 0; i < routePoints.size() - 1; i++) {
 			// we are already avoiding single points and not routes to enter
 			// here
 			distance += GeoMethods.getDistance(routePoints.get(i), routePoints.get(i + 1));
 		}
-		return roundOneDecimal(distance / 100000);
+		return roundOneDecimal(distance * 10);
 	}
 
 	private static double roundOneDecimal(double d) {
-		return (double)Math.round(d * 10) / 10;
+		return (double) Math.round(d * 10) / 10;
 	}
 }

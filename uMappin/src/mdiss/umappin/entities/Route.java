@@ -42,7 +42,7 @@ public class Route {
 				JSONArray points = geometry.getJSONArray("coordinates");
 				for (int i = 0; i < points.length(); i++) {
 					JSONArray coord = points.getJSONArray(i);
-					routePoints.add(new GeoPoint(coord.getDouble(0), coord.getDouble(1)));
+					routePoints.add(new GeoPoint(coord.getDouble(1), coord.getDouble(0)));
 				}
 			}
 			if (!json.isNull("properties")) {
@@ -103,7 +103,7 @@ public class Route {
 			// here
 			distance += GeoMethods.getDistance(routePoints.get(i), routePoints.get(i + 1));
 		}
-		return roundOneDecimal(distance / 1000);
+		return roundOneDecimal(distance * 10);
 	}
 
 	private double roundOneDecimal(double d) {
