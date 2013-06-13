@@ -57,7 +57,7 @@ public class DiscussionHeadersFragment extends ListFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		getActivity().setTitle("Messages");
+		getActivity().getActionBar().setTitle("Messages");
 		return inflater.inflate(R.layout.list, container, false);
 
 	}

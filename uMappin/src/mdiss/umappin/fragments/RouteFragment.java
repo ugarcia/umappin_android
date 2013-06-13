@@ -37,7 +37,11 @@ public class RouteFragment extends ListFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Log.i("LifeCycle", "onViewCreated");
-		getActivity().setTitle("My routes");
+		if (getFragmentManager().getBackStackEntryCount() > 0) {
+			getActivity().getActionBar().setTitle("Routes around");
+		} else {
+			getActivity().getActionBar().setTitle("My routes");
+		}
 		super.onViewCreated(view, savedInstanceState);
 		if (firstTime) {
 			View header = getActivity().getLayoutInflater().inflate(R.layout.route_list_header, null);
@@ -47,7 +51,7 @@ public class RouteFragment extends ListFragment {
 
 			RouteAdapter adapter = new RouteAdapter(getActivity(), routes);
 			setListAdapter(adapter);
-			firstTime=false;
+			firstTime = false;
 		}
 	}
 
@@ -94,7 +98,6 @@ public class RouteFragment extends ListFragment {
 		case R.id.action_near_routes:
 			GeoPoint currentPoint = GeoMethods.getCurrentLocation(getActivity());
 			new RoutesAsyncTask(getActivity(), GeoMethods.getGeoJSON(currentPoint)).execute("/near/20");
-			getActivity().setTitle("Routes around");
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

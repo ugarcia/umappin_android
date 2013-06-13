@@ -53,11 +53,11 @@ public class FollowsFragment extends ListFragment implements OnClickListener{
 			//Following Adapter have to change to followeds
 			//TODO
 			adapter=new FollowingAdapter(getActivity(),profileUser);
-			getActivity().setTitle("Follows");
+			getActivity().getActionBar().setTitle("Follows");
 
 		}else{
 			adapter=new FollowersAdapter(getActivity(), profileUser);
-			getActivity().setTitle("Followers");
+			getActivity().getActionBar().setTitle("Followers");
 		}
 		
         list.setAdapter(adapter);

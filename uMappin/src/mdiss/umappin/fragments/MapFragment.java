@@ -47,7 +47,7 @@ public class MapFragment extends Fragment {
 		if (route!=null) {
 			showRoute();
 		} else {
-			getActivity().setTitle("OpenStreetMap");
+			getActivity().getActionBar().setTitle("OpenStreetMap");
 		}
 		return mapView;
 	}
@@ -69,7 +69,7 @@ public class MapFragment extends Fragment {
 		double distance = GeoMethods.getDistance(route);
 		Log.i(Constants.logGeoMethods, distance + " km");
 		if (!route.isEmpty()) {
-			getActivity().setTitle(routeName);
+			getActivity().getActionBar().setTitle(routeName);
 			mapView.setCenter(route.get(0));
 			Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 			wayDefaultPaintFill.setStyle(Paint.Style.STROKE);

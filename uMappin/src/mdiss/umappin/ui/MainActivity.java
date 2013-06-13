@@ -164,7 +164,7 @@ public class MainActivity extends MapActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			switch (position) {
 			case 0:// Timeline
-				getActionBar().setTitle("Timeline");
+				getActionBar().setTitle("Activity");
 				new GetNewsAsyncTask(MainActivity.this).execute();
 				cleanBackStack();
 				break;
@@ -410,9 +410,9 @@ public class MainActivity extends MapActivity {
 						dialog.dismiss();
 					}
 				});
-		if (getFragmentManager().getBackStackEntryCount() <= 1 && this.getTitle().equals("Activity")) {
+		if (getFragmentManager().getBackStackEntryCount() <= 1 && this.getActionBar().getTitle().equals("Activity")) {
 			dialog.show();
-		} else if (getFragmentManager().getBackStackEntryCount() <= 1 && !this.getTitle().equals("Activity")) {
+		} else if (getFragmentManager().getBackStackEntryCount() <= 1 && !this.getActionBar().getTitle().equals("Activity")) {
 			cleanBackStack();
 			new GetNewsAsyncTask(this).execute();
 		} else {

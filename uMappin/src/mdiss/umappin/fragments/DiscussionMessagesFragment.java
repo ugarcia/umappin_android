@@ -49,7 +49,7 @@ public class DiscussionMessagesFragment extends ListFragment{
 		mList.setAdapter(adapter);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,1);
 		mList.setLayoutParams(params);
-		getActivity().setTitle(discussion.getSubject());
+		getActivity().getActionBar().setTitle(discussion.getSubject());
 	}
 	
 	@Override

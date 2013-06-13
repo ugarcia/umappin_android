@@ -21,7 +21,7 @@ public class TimelineFragment extends ListFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		getActivity().setTitle("Activity");
+		getActivity().getActionBar().setTitle("Activity");
 		return inflater.inflate(R.layout.list,container,false);
 	}
 	

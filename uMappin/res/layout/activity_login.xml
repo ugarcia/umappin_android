@@ -55,7 +55,7 @@
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:text="pepe@pepe.es"
+                android:text="jon.arriaga@opendeusto.es"
                 android:singleLine="true" 
                 android:layout_marginLeft="25dip"
                 android:layout_marginRight="25dip"

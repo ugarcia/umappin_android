@@ -70,6 +70,7 @@ public class OthersProfileFragment extends HandleredFragment implements OnClickL
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		getActivity().getActionBar().setTitle(profileUser.getName());
 		
 		//get elements from XML
 		name = (TextView) getView().findViewById(R.id.firstName);		
