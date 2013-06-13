@@ -35,7 +35,7 @@ public class MapFragment extends Fragment {
 
 	private MapView mapView;
 	private List<GeoPoint> route;
-	private String routeName="";
+	private String routeName = "";
 
 	public MapFragment() {
 		super();
@@ -45,7 +45,7 @@ public class MapFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		initializeMap();
 		mapView.getOverlays().clear();
-		if (route!=null) {
+		if (route != null) {
 			showRoute();
 		} else {
 			getActivity().getActionBar().setTitle("OpenStreetMap");
@@ -118,13 +118,13 @@ public class MapFragment extends Fragment {
 
 			BoundingBox bb = new BoundingBox(minLat, minLon, maxLat, maxLon);
 			fitToBoundingBox(bb, 18);
-			
+
 			Drawable defaultMarker = getResources().getDrawable(R.drawable.marker1);
 			Drawable defaultMarker2 = getResources().getDrawable(R.drawable.marker2);
 			ArrayItemizedOverlay itemizedOverlay1 = new ArrayItemizedOverlay(defaultMarker);
 			ArrayItemizedOverlay itemizedOverlay2 = new ArrayItemizedOverlay(defaultMarker2);
 			OverlayItem item1 = new OverlayItem(route.get(0), "Begin", "Begining of the route");
-			OverlayItem item2 = new OverlayItem(route.get(route.size()-1), "End", "End of route");
+			OverlayItem item2 = new OverlayItem(route.get(route.size() - 1), "End", "End of route");
 			itemizedOverlay1.addItem(item1);
 			itemizedOverlay2.addItem(item2);
 			mapView.getOverlays().add(itemizedOverlay1);
@@ -135,13 +135,13 @@ public class MapFragment extends Fragment {
 	public List<GeoPoint> getRoute() {
 		return route;
 	}
-	
+
 	public String getRouteName() {
 		return routeName;
 	}
-	
+
 	public void setRouteName(String routeName) {
-		this.routeName=routeName;
+		this.routeName = routeName;
 	}
 
 	public void setRoute(List<GeoPoint> route) {
@@ -184,13 +184,13 @@ public class MapFragment extends Fragment {
 					.setMapCenterAndZoomLevel(new MapPosition(pBoundingBox.getCenterPoint(), zoomLevel));
 		}
 	}
-	
-	
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mapView.getOverlays().clear();
+		if (mapView != null && !mapView.getOverlays().isEmpty()) {
+			mapView.getOverlays().clear();
+		}
 		System.gc();
 		Log.i("LifeCycle", "map destroy");
 	}
